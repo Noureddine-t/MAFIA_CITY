@@ -21,7 +21,7 @@ var last_tap_time_right: float = 0.0
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-	sprite.scale *= 2  # Agrandir légèrement le sprite
+	#sprite.scale *= 2  # Agrandir légèrement le sprite
 	animation_player.play("idle")
 
 # Called every frame

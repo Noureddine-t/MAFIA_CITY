@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://clbs5f5fsl2sj"]
+[gd_scene load_steps=76 format=3 uid="uid://clbs5f5fsl2sj"]
 
 [ext_resource type="Texture2D" uid="uid://b0sf2uxclgaa6" path="res://assets/sprites/hero3_sprites/Idle.png" id="1_drt3o"]
 [ext_resource type="Script" path="res://assets/scenes/hero_3.gd" id="1_jpcve"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bwkc4lvs00a1c" path="res://assets/sprites/hero3_sprites/Attack_3.png" id="6_l0hwd"]
 [ext_resource type="Texture2D" uid="uid://bjku1dfa3t60y" path="res://assets/sprites/hero3_sprites/Hurt.png" id="8_xg0q6"]
 [ext_resource type="Texture2D" uid="uid://7lckp6r36fu2" path="res://assets/sprites/hero3_sprites/Dead.png" id="9_ou0pi"]
-[ext_resource type="Script" path="res://assets/scenes/colliders.gd" id="10_sc8h1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_knos6"]
 atlas = ExtResource("1_drt3o")
@@ -384,10 +383,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gufee"]
-size = Vector2(21, 52)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h1sy"]
-size = Vector2(19, 19)
+size = Vector2(10, 25)
 
 [sub_resource type="Animation" id="Animation_edq0b"]
 length = 0.001
@@ -406,86 +402,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/RightHand/rightHandcoll:position")
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-5, -36)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Colliders/LeftHand/leftHandcoll:shape")
+tracks/2/path = NodePath("ZoneAttack/handcollision:shape:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_3h1sy")]
+"update": 0,
+"values": [Vector2(12.5, 13)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Colliders/LeftHand/leftHandcoll:position")
+tracks/3/path = NodePath("ZoneAttack/handcollision:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-5, -49)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Colliders/LeftHand/leftHandcoll:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Colliders/RightHand/rightHandcoll:shape:size")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(12.5, 13)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Colliders/LeftHand/leftHandcoll:shape:size")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(19, 19)]
+"values": [Vector2(2, -49)]
 }
 
 [sub_resource type="Animation" id="Animation_8omkx"]
@@ -507,50 +455,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/RightHand/rightHandcoll:position")
+tracks/1/path = NodePath("ZoneAttack/handcollision:shape:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.266667, 0.333333, 0.466667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-5, -36), Vector2(-8, -43), Vector2(-14, -54), Vector2(34, -50), Vector2(38, -49), Vector2(24, -53)]
+"update": 1,
+"values": [Vector2(13.125, 12.75), Vector2(13.125, 12.75), Vector2(13.125, 12.75), Vector2(28.5, 14.9375), Vector2(30, 12), Vector2(14.3906, 11.4688)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
+tracks/2/path = NodePath("ZoneAttack/handcollision:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.266667, 0.333333, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false]
+"values": [Vector2(19.6953, 14), Vector2(22.5, 15), Vector2(16.5, 12.5)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Colliders/LeftHand/leftHandcoll:disabled")
+tracks/3/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Colliders/RightHand/rightHandcoll:shape:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.266667, 0.333333, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(13.8125, 9), Vector2(13.8125, 9), Vector2(13.8125, 9), Vector2(26, 16), Vector2(22.2589, 14), Vector2(13.7509, 10)]
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_mxwdn"]
@@ -572,62 +508,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/LeftHand/leftHandcoll:shape")
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.233333, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [SubResource("RectangleShape2D_3h1sy"), SubResource("RectangleShape2D_3h1sy"), SubResource("RectangleShape2D_3h1sy"), SubResource("RectangleShape2D_3h1sy")]
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Colliders/LeftHand/leftHandcoll:position")
+tracks/2/path = NodePath("ZoneAttack/handcollision:shape:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.233333, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-5, -49), Vector2(30, -54), Vector2(33, -52), Vector2(22, -55)]
+"times": PackedFloat32Array(0.166667, 0.233333, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(27.0039, 18.5), Vector2(23.8047, 16.9719), Vector2(12.6074, 11.6234)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Colliders/LeftHand/leftHandcoll:disabled")
+tracks/3/path = NodePath("ZoneAttack/handcollision:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Colliders/LeftHand/leftHandcoll:shape:size")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0.166667, 0.233333, 0.466667),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(19, 19), Vector2(19, 19), Vector2(10, 10)]
+"update": 1,
+"values": [Vector2(19.5, 9.5), Vector2(19.5, 11.5), Vector2(14.5, 9.5)]
 }
 
 [sub_resource type="Animation" id="Animation_duugb"]
@@ -649,50 +561,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/RightHand/rightHandcoll:position")
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.3, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(2, -50), Vector2(6, -50), Vector2(17, -41), Vector2(25, -49), Vector2(27, -70), Vector2(27, -68)]
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
+tracks/2/path = NodePath("ZoneAttack/handcollision:shape:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.133333, 0.2, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [false]
+"values": [Vector2(14.125, 14.5), Vector2(15.5625, 21.25), Vector2(18.7813, 42.625), Vector2(18.7813, 42.625)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Colliders/LeftHand/leftHandcoll:disabled")
+tracks/3/path = NodePath("ZoneAttack/handcollision:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.133333, 0.2, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Colliders/RightHand/rightHandcoll:shape:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.3, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(12.5, 13), Vector2(12.5, 13), Vector2(12.5, 13), Vector2(12.5, 13), Vector2(16.25, 34.5), Vector2(15.625, 34)]
+"values": [Vector2(10.5, 23), Vector2(17.5, 18), Vector2(20.5, 10), Vector2(19, 7)]
 }
 
 [sub_resource type="Animation" id="Animation_scjmh"]
@@ -713,7 +613,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -738,6 +638,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [47, 48, 49, 50, 51]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ove3g"]
 resource_name = "hurt"
@@ -754,6 +666,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [43, 44, 45, 46]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_8sm2c"]
@@ -772,6 +696,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 2, 3, 4, 5, 6]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_xbgk5"]
 resource_name = "run"
@@ -788,6 +724,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_36fd1"]
@@ -809,22 +757,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Colliders/LeftHand/leftHandcoll:disabled")
+tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Colliders/RightHand/rightHandcoll:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -845,20 +781,20 @@ _data = {
 "walk": SubResource("Animation_36fd1")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6v6tr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31o4a"]
 size = Vector2(12.5, 13)
 
 [node name="Hero_3" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_jpcve")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(7, -64)
 sprite_frames = SubResource("SpriteFrames_tkepo")
 animation = &"new_animation"
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -44)
+position = Vector2(0, 15.3127)
 shape = SubResource("RectangleShape2D_gufee")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -866,22 +802,12 @@ libraries = {
 "": SubResource("AnimationLibrary_prl3a")
 }
 
-[node name="Colliders" type="Node" parent="."]
-script = ExtResource("10_sc8h1")
+[node name="ZoneAttack" type="Area2D" parent="."]
 
-[node name="LeftHand" type="Area2D" parent="Colliders"]
+[node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
+position = Vector2(2, -49)
+shape = SubResource("RectangleShape2D_31o4a")
 
-[node name="leftHandcoll" type="CollisionShape2D" parent="Colliders/LeftHand"]
-position = Vector2(-5, -49)
-shape = SubResource("RectangleShape2D_3h1sy")
-disabled = true
+[node name="attack_origin" type="Marker2D" parent="ZoneAttack/handcollision"]
 
-[node name="RightHand" type="Area2D" parent="Colliders"]
-
-[node name="rightHandcoll" type="CollisionShape2D" parent="Colliders/RightHand"]
-position = Vector2(-5, -36)
-shape = SubResource("RectangleShape2D_6v6tr")
-disabled = true
-
-[connection signal="body_entered" from="Colliders/LeftHand" to="." method="_on_left_hand_body_entered"]
-[connection signal="body_entered" from="Colliders/RightHand" to="." method="_on_right_hand_body_entered"]
+[connection signal="body_entered" from="ZoneAttack" to="." method="_on_zone_attack_body_entered"]

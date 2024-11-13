@@ -26,17 +26,20 @@ var last_tap_time_left: float = 0.0
 var last_tap_time_right: float = 0.0
 var hit_enemies = [] # Liste pour stocker les ennemis déjà touchés dans l'attaque
 
-@onready var righthand_area: Area2D = $Colliders/RightHand
-@onready var lefthand_area: Area2D = $Colliders/LeftHand
+
+
+@onready var attack_area: Area2D = $ZoneAttack  # Zone d'attaque
+@onready var attack_shape: CollisionShape2D = $ZoneAttack/handcollision  # Forme de collision de la zone d'attaque
+@onready var attack_origin : Marker2D = $ZoneAttack/handcollision/attack_origin
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-	sprite.scale *= 2  # Agrandir légèrement le sprite
+	#sprite.scale *= 2  # Agrandir légèrement le sprite
 	animation_player.play("idle")
 	# Connecter les signaux des zones des mains aux fonctions correspondantes
-	righthand_area.connect("body_entered", Callable(self, "_on_right_hand_body_entered"))
-	lefthand_area.connect("body_entered", Callable(self, "_on_left_hand_body_entered"))
+
+
 
 
 # Called every frame
@@ -49,7 +52,7 @@ func _process(_delta: float) -> void:
 	# Gestion du dash
 	detect_double_tap(_delta)
 
-	# Si Hero2 est en train de tirer ou d'attaquer, il ne peut pas bouger
+	# Si Hero_3 est en train de tirer ou d'attaquer, il ne peut pas bouger
 	if is_attacking:
 		return
 
@@ -82,6 +85,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func setDirection() -> bool:
+	
 	var new_dir: Vector2 = cardinal_direction
 
 	if direction == Vector2.ZERO:
@@ -92,7 +96,17 @@ func setDirection() -> bool:
 			new_dir = Vector2.LEFT
 		else:
 			new_dir = Vector2.RIGHT
-		sprite.scale.x = -abs(sprite.scale.x) if new_dir == Vector2.LEFT else abs(sprite.scale.x)
+		if new_dir == Vector2.LEFT :
+			sprite.scale.x = -abs(sprite.scale.x) 
+			attack_area.scale.x = -1  # Déplace le Marker2D à gauche
+			#attack_area.position.x = 10 #ajustement
+		else :
+			sprite.scale.x = abs(sprite.scale.x)
+			attack_area.scale.x = 1 
+			#attack_area.position.x = -1 #ajustement
+			
+		
+		
 
 	elif direction.x == 0:
 		if direction.y < 0:
@@ -161,17 +175,16 @@ func attack() -> void:
 
 	if last_horizontal_direction == Vector2.LEFT:
 		sprite.scale.x = -abs(sprite.scale.x)
+		
 	else:
 		sprite.scale.x = abs(sprite.scale.x)
+		
 
 	# Délai entre chaque attaque pour permettre le combo
 	await get_tree().create_timer(0.48).timeout
 
 	# Infliger des dégâts à l'ennemi si en portée
 	var enemies = get_tree().get_nodes_in_group("enemies")  # Assurez-vous que vos ennemis sont dans un groupe "enemies"
-	for enemy in enemies:
-		if position.distance_to(enemy.position) <= attack_range:
-			enemy.take_damage(attack_damage)  # Inflige les dégâts à l'ennemi
 
 	if combo_attack_count >= 3:
 		combo_attack_count = 0  # Réinitialiser après le troisième coup
@@ -180,8 +193,6 @@ func attack() -> void:
 	setState()
 	UpdateAnimation()
 	
-# Fonction appelée lorsque la zone de la main droite touche un autre corps (par exemple, le héros)
-# Fonction appelée lorsque la zone de la main droite touche un autre corps
 
 func take_damage(amount: int) -> void:
 	if is_dead:  # Si l'hero est déjà mort, ne pas recevoir de dégâts
@@ -190,9 +201,11 @@ func take_damage(amount: int) -> void:
 	print("Hero took damage! Current health: " + str(health))
 	animation_player.play("hurt")
 	await get_tree().create_timer(0.25).timeout
-	
+	if direction == Vector2.ZERO:
+		animation_player.play("idle")
 	if health <= 0 and is_dead == false:
 		die()  # Appeler la fonction die si la santé atteint 0
+	
 
 # Fonction pour gérer la mort du héros
 func die() -> void:
@@ -206,4 +219,7 @@ func die() -> void:
 	await get_tree().create_timer(5.0).timeout
 	queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
 	
-	
+
+func _on_zone_attack_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):  # Vérifie si le corps en contact est un ennemi
+		body.take_damage(attack_damage)  # Inflige des dégâts à l'ennemi

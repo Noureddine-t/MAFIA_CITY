@@ -535,6 +535,7 @@ _data = {
 }
 
 [node name="Hero" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_byqbr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

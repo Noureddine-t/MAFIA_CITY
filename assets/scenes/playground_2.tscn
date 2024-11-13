@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0q1vylcda232"]
+
+[ext_resource type="PackedScene" uid="uid://clbs5f5fsl2sj" path="res://assets/scenes/hero_3.tscn" id="1_pet0d"]
+[ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="2_fhdtl"]
+
+[node name="Playground2" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
+position = Vector2(-236, -1)
+
+[node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
+position = Vector2(363, -18)
