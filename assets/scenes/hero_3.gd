@@ -161,6 +161,8 @@ func detect_double_tap(delta: float) -> void:
 
 # Fonction pour attaquer avec un combo
 func attack() -> void:
+	if is_dead:  # Si l'hero est déjà mort, ne pas recevoir de dégâts
+		return
 	if is_attacking and combo_attack_count >= 3:
 		return  # Si le combo est terminé, ignorer d'autres attaques
 

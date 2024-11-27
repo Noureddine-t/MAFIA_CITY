@@ -8,7 +8,7 @@ var attack_damage: int = 10  # Dégâts de l'attaque
 var is_attacking: bool = false  # Pour éviter de suivre et d'attaquer en même temps
 var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
 var health: int = 50  # Santé de l'ennemi
-var is_dead : bool = false
+var is_dead : bool = false 
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -48,6 +48,8 @@ func _process(delta: float) -> void:
 			if not is_attacking:
 				follow_hero(delta)
 func follow_hero(delta: float) -> void:
+	if is_dead :
+		return
 	# Calculer la direction vers le héros
 	var direction: Vector2 = (hero.position - position).normalized()
 
@@ -66,6 +68,8 @@ func follow_hero(delta: float) -> void:
 		
 	animation_player.play("walk")
 func attack() -> void:
+	if is_dead:
+		return  
 	if hero:
 		is_attacking = true  # Bloquer le mouvement pendant l'attaque
 		velocity = Vector2.ZERO  # Stopper le mouvement
@@ -90,8 +94,7 @@ func take_damage(amount: int) -> void:
 	print("Enemy took damage! Current health: " + str(health))
 	animation_player.play("hurt")
 	await get_tree().create_timer(0.25).timeout
-	if direction == Vector2.ZERO:
-		animation_player.play("idle")
+	animation_player.play("idle")
 	if health <= 0 and is_dead == false :
 		die()  # Appelle la méthode die si la santé atteint 0
 
@@ -113,6 +116,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
+	if is_dead :
+		return
 	# Quand le héros quitte la zone de détection
 	if body == hero:
 		hero = null  # L'ennemi arrête de suivre le héros
@@ -128,5 +133,7 @@ func _on_zone_attack_body_entered(body: Node2D) -> void:
 
 
 func _on_timer_timeout() -> void:
+	if is_dead :
+		return
 	print("temps écoulé")
 	attack()

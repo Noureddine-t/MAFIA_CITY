@@ -535,6 +535,7 @@ _data = {
 }
 
 [node name="Hero" type="CharacterBody2D"]
+position = Vector2(0, -1)
 scale = Vector2(2, 2)
 script = ExtResource("1_byqbr")
 
