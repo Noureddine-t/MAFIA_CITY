@@ -9,13 +9,15 @@
 [node name="Playground" type="Node2D"]
 script = ExtResource("1_m37ll")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Hero2" parent="." instance=ExtResource("2_0ysdd")]
 position = Vector2(-499, -200)
 
 [node name="Hero" parent="." instance=ExtResource("3_5jp4c")]
 position = Vector2(-412, 156)
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+position = Vector2(206, -78)
+scale = Vector2(0.5, 0.5)
 
 [node name="Hero_3" parent="." instance=ExtResource("4_mah0l")]
 position = Vector2(-334, -16)
