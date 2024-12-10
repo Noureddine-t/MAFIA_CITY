@@ -187,8 +187,8 @@ func shoot_bullet():
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
 
-	var bullet_offset_right = Vector2(30, 25)
-	var bullet_offset_left = Vector2(-30, 25)
+	var bullet_offset_right = Vector2(30, 10)
+	var bullet_offset_left = Vector2(-30, 10)
 
 	if last_horizontal_direction == Vector2.RIGHT:
 		bullet.global_position = global_position + bullet_offset_right

@@ -9,6 +9,7 @@ var is_attacking: bool = false  # Pour éviter de suivre et d'attaquer en même 
 var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
 var health: int = 50  # Santé de l'ennemi
 var is_dead : bool = false 
+var is_hurt : bool = false
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -48,7 +49,7 @@ func _process(delta: float) -> void:
 			if not is_attacking:
 				follow_hero(delta)
 func follow_hero(delta: float) -> void:
-	if is_dead :
+	if is_dead or is_hurt:
 		return
 	# Calculer la direction vers le héros
 	var direction: Vector2 = (hero.position - position).normalized()
@@ -68,7 +69,7 @@ func follow_hero(delta: float) -> void:
 		
 	animation_player.play("walk")
 func attack() -> void:
-	if is_dead:
+	if is_dead or is_hurt:
 		return  
 	if hero:
 		is_attacking = true  # Bloquer le mouvement pendant l'attaque
@@ -87,16 +88,18 @@ func stop_moving() -> void:
 	animation_player.play("idle")  # Revenir à l'animation idle
 	
 func take_damage(amount: int) -> void:
-	var direction: Vector2 = (hero.position - position).normalized()
 	if is_dead:  # Si l'ennemi est déjà mort, ne pas recevoir de dégâts
 		return
+	is_hurt = true
 	health -= amount  # Réduit la santé de l'ennemi
 	print("Enemy took damage! Current health: " + str(health))
+	velocity = Vector2.ZERO
 	animation_player.play("hurt")
 	await get_tree().create_timer(0.25).timeout
 	animation_player.play("idle")
 	if health <= 0 and is_dead == false :
 		die()  # Appelle la méthode die si la santé atteint 0
+	is_hurt = false
 
 func die() -> void:
 	if is_dead:  # Si l'ennemi est déjà mort, ne pas exécuter la mort
@@ -111,7 +114,7 @@ func die() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and body.name == "Hero_3":  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 

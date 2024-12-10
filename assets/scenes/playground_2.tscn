@@ -5,10 +5,12 @@
 
 [node name="Playground2" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
 position = Vector2(-236, -1)
+
+[node name="Camera2D" type="Camera2D" parent="Hero_3"]
+position = Vector2(118, 0.5)
+scale = Vector2(0.5, 0.5)
 
 [node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
 position = Vector2(363, -18)

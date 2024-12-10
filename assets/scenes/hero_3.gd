@@ -4,10 +4,14 @@ class_name Hero_3 extends CharacterBody2D
 
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
-var move_speed: float = 220.0  # Hero2 est un peu plus rapide
-var dash_speed: float = 450.0  # Dash plus rapide pour Hero2
+var move_speed: float = 220.0  
+var dash_speed: float = 450.0  
+
+
 var is_dashing: bool = false
 var is_attacking: bool = false
+var is_dead : bool = false
+
 var state: String = "idle"
 var last_horizontal_direction: Vector2 = Vector2.RIGHT  # Par défaut, le personnage fait face à droite
 var combo_attack_count: int = 0  # Nouveau : compteur pour le combo d'attaque
@@ -15,8 +19,6 @@ var combo_timer: float = 0.0     # Nouveau : timer pour le combo
 var max_combo_delay: float = 1.0  # Délai maximal pour enchaîner le combo
 # Variables pour la santé
 var health: int = 100  # Santé du héros
-var is_dead : bool = false
-
 var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
 var attack_damage: int = 10  # Dégâts de l'attaque
 
@@ -37,9 +39,7 @@ var hit_enemies = [] # Liste pour stocker les ennemis déjà touchés dans l'att
 func _ready() -> void:
 	#sprite.scale *= 2  # Agrandir légèrement le sprite
 	animation_player.play("idle")
-	# Connecter les signaux des zones des mains aux fonctions correspondantes
-
-
+	
 
 
 # Called every frame
@@ -200,7 +200,7 @@ func take_damage(amount: int) -> void:
 	if is_dead:  # Si l'hero est déjà mort, ne pas recevoir de dégâts
 		return
 	health -= amount  # Réduit la santé du héros
-	print("Hero took damage! Current health: " + str(health))
+	print("Hero_3 took damage! Current health: " + str(health))
 	animation_player.play("hurt")
 	await get_tree().create_timer(0.25).timeout
 	if direction == Vector2.ZERO:
@@ -214,7 +214,7 @@ func die() -> void:
 	if is_dead:  # Si l'hero est déjà mort, ne pas exécuter la mort
 		return
 	is_dead = true
-	print("Hero is dead")
+	print("Hero_3 is dead")
 	animation_player.play("die")
 	await get_tree().create_timer(1.0).timeout
 	animation_player.play("dead")

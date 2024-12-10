@@ -4,19 +4,27 @@ const bulletPath = preload('res://bullet.tscn')  # Balle spécifique à Hero2
 
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
-var move_speed: float = 220.0  # Hero2 est un peu plus rapide
-var dash_speed: float = 450.0  # Dash plus rapide pour Hero2
+var move_speed: float = 220.0  
+var dash_speed: float = 450.0 
 var is_dashing: bool = false
 var is_shooting: bool = false
 var is_attacking: bool = false
+var is_hurt: bool = false
+var is_dead: bool =false
 var state: String = "idle"
 var last_horizontal_direction: Vector2 = Vector2.RIGHT  # Par défaut, le personnage fait face à droite
-
+# Variables pour la santé
+var health: int = 100  # Santé du héros
+var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
+var attack_damage: int = 10  # Dégâts de l'attaque
 # Temps entre deux appuis consécutifs pour détecter un dash
 var double_tap_time: float = 0.3
 var last_tap_time_left: float = 0.0
 var last_tap_time_right: float = 0.0
 
+@onready var attack_area: Area2D = $ZoneAttack  # Zone d'attaque
+@onready var attack_shape: CollisionShape2D = $ZoneAttack/handcollision  # Forme de collision de la zone d'attaque
+@onready var attack_origin : Marker2D = $ZoneAttack/handcollision/attack_origin
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -26,6 +34,8 @@ func _ready() -> void:
 
 # Called every frame
 func _process(_delta: float) -> void:
+	if is_dead:
+		return
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 
@@ -53,7 +63,7 @@ func _process(_delta: float) -> void:
 		attack()
 
 func _physics_process(delta: float) -> void:
-	if is_shooting or is_attacking:
+	if is_shooting or is_attacking or is_dead :
 		return
 
 	# Appliquer la vitesse normale ou de dash
@@ -72,8 +82,15 @@ func setDirection() -> bool:
 			new_dir = Vector2.LEFT
 		else:
 			new_dir = Vector2.RIGHT
-		sprite.scale.x = -abs(sprite.scale.x) if new_dir == Vector2.LEFT else abs(sprite.scale.x)
-
+		if new_dir == Vector2.LEFT :
+			sprite.scale.x = -abs(sprite.scale.x) 
+			attack_area.scale.x = -1  # Déplace le Marker2D à gauche
+			#attack_area.position.x = 10 #ajustement
+		else :
+			sprite.scale.x = abs(sprite.scale.x)
+			attack_area.scale.x = 1 
+			#attack_area.position.x = -1 #ajustement
+			
 	elif direction.x == 0:
 		if direction.y < 0:
 			new_dir = Vector2.UP
@@ -130,6 +147,8 @@ func detect_double_tap(delta: float) -> void:
 
 # Fonction pour tirer avec un délai
 func shoot() -> void:
+	if is_dead:
+		return
 	if is_shooting:
 		return
 
@@ -153,6 +172,8 @@ func shoot() -> void:
 
 # Fonction pour attaquer
 func attack() -> void:
+	if is_dead :
+		return
 	if is_attacking:
 		return
 
@@ -171,8 +192,10 @@ func attack() -> void:
 	setState()
 	UpdateAnimation()
 
-# Fonction pour tirer une balle spécifique à Hero2
+# Fonction pour tirer une balle spécifique à Hero
 func shoot_bullet():
+	if is_dead:
+		return
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
 
@@ -189,3 +212,36 @@ func shoot_bullet():
 	bullet.scale = Vector2(2.5, 2.5)  # Ajustement de l'échelle pour Hero2
 
 	print("Hero Bullet fired! Position: ", bullet.global_position)
+	
+func take_damage(amount: int) -> void:
+	if is_dead:  # Si l'hero est déjà mort, ne pas recevoir de dégâts
+		return
+	if is_hurt:
+		return
+	is_hurt = true
+	health -= amount  # Réduit la santé du héros
+	velocity = Vector2.ZERO
+	print("Hero took damage! Current health: " + str(health))
+	animation_player.play("hurt")
+	if health <= 0 and is_dead == false:
+		die()  # Appeler la fonction die si la santé atteint 0
+	else :
+		await get_tree().create_timer(0.25).timeout
+	if direction == Vector2.ZERO:
+		animation_player.play("idle")
+	is_hurt = false
+func die() -> void:
+	if is_dead:  # Si l'hero est déjà mort, ne pas exécuter la mort
+		return
+	is_dead = true
+	print("Hero is dead")
+	animation_player.play("die")
+	await get_tree().create_timer(1.0).timeout
+	animation_player.play("dead")
+	await get_tree().create_timer(5.0).timeout
+	queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
+	
+
+func _on_zone_attack_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):  # Vérifie si le corps en contact est un ennemi
+		body.take_damage(attack_damage)  # Inflige des dégâts à l'ennemi

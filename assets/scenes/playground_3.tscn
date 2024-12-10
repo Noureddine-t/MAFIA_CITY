@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ltjw1vlf6qwq"]
+
+[ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="1_fj5xm"]
+[ext_resource type="PackedScene" uid="uid://b50tt7v5l73ug" path="res://assets/scenes/hero.tscn" id="2_rus65"]
+
+[node name="Playground3" type="Node2D"]
+
+[node name="enemie" parent="." instance=ExtResource("1_fj5xm")]
+position = Vector2(363, -18)
+
+[node name="Hero" parent="." instance=ExtResource("2_rus65")]
+position = Vector2(811, 9)
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+position = Vector2(0, 0.5)
+scale = Vector2(0.5, 0.5)
