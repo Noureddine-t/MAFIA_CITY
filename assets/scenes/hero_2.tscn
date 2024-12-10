@@ -853,3 +853,5 @@ shape = SubResource("RectangleShape2D_hmvwd")
 disabled = true
 
 [node name="attack_origin" type="Marker2D" parent="ZoneAttack/handcollision"]
+
+[connection signal="body_entered" from="ZoneAttack" to="." method="_on_zone_attack_body_entered"]
