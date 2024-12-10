@@ -163,13 +163,9 @@ func shoot() -> void:
 	shoot_bullet()
 	await get_tree().create_timer(0.03).timeout
 	shoot_bullet()
-	await get_tree().create_timer(0.07).timeout
+	await get_tree().create_timer(0.17).timeout
 	shoot_bullet()
 	await get_tree().create_timer(0.1).timeout
-	shoot_bullet()
-	await get_tree().create_timer(0.1).timeout
-	shoot_bullet()
-	await get_tree().create_timer(0.03).timeout
 	shoot_bullet()
 	
 	
@@ -208,8 +204,8 @@ func shoot_bullet():
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
 
-	var bullet_offset_right = Vector2(30, 10)
-	var bullet_offset_left = Vector2(-30, 10)
+	var bullet_offset_right = Vector2(30, 50)
+	var bullet_offset_left = Vector2(-30, 50)
 
 	if last_horizontal_direction == Vector2.RIGHT:
 		bullet.global_position = global_position + bullet_offset_right
