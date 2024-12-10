@@ -741,23 +741,17 @@ tile_set = SubResource("TileSet_1s0rf")
 [node name="StaticBody2D" type="StaticBody2D" parent="wall_layers"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="wall_layers/StaticBody2D"]
-position = Vector2(1472, -407.5)
+position = Vector2(1473, -407.5)
 shape = SubResource("RectangleShape2D_7ssm4")
 
 [node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
-position = Vector2(42, -117)
+position = Vector2(715, 190)
 collision_layer = 2
 collision_mask = 3
-
-[node name="Camera2D" type="Camera2D" parent="Hero_3"]
-position = Vector2(118, 0.5)
-scale = Vector2(0.5, 0.5)
 
 [node name="Camera2D" type="Camera2D" parent="Hero_3"]
 position = Vector2(118, 0.5)
 scale = Vector2(0.5, 0.5)
 
 [node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
-position = Vector2(383, 150)
-collision_layer = 2
-collision_mask = 3
+position = Vector2(232, 208)
