@@ -932,6 +932,8 @@ position = Vector2(2, 43.5)
 shape = SubResource("CircleShape2D_dggrh")
 
 [node name="ZoneAttack" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(-2, -36.5)

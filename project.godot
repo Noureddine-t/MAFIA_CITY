@@ -65,9 +65,9 @@ switch_character={
 
 [layer_names]
 
-2d_physics/layer_1="murs"
-2d_physics/layer_2="joueurs"
-2d_physics/layer_3="ennemis"
+2d_physics/layer_1="heros"
+2d_physics/layer_2="enemies"
+2d_physics/layer_3="walls"
 
 [rendering]
 

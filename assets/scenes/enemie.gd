@@ -113,6 +113,7 @@ func die() -> void:
 	queue_free()  # Supprime l'ennemi de la scène
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
 	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
