@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="2_fhdtl"]
 [ext_resource type="Texture2D" uid="uid://c3mtr2iivsd00" path="res://assets/sprites/tilemap-city.png" id="3_br1km"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f14c1"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ig68t"]
 texture = ExtResource("3_br1km")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
@@ -721,7 +721,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_1s0rf"]
 tile_size = Vector2i(64, 64)
-sources/0 = SubResource("TileSetAtlasSource_f14c1")
+sources/0 = SubResource("TileSetAtlasSource_ig68t")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ssm4"]
 size = Vector2(2944, 593)
@@ -747,7 +747,7 @@ position = Vector2(1473, -407.5)
 shape = SubResource("RectangleShape2D_7ssm4")
 
 [node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
-position = Vector2(715, 190)
+position = Vector2(277, 273)
 collision_layer = 3
 collision_mask = 3
 
@@ -756,6 +756,6 @@ position = Vector2(118, 0.5)
 scale = Vector2(0.5, 0.5)
 
 [node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
-position = Vector2(1280, 214)
+position = Vector2(916, 276)
 collision_layer = 3
 collision_mask = 3

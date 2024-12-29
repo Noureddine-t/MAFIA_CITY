@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://dfcbp1e05q68b"]
+[gd_scene load_steps=79 format=3 uid="uid://dfcbp1e05q68b"]
 
 [ext_resource type="Texture2D" uid="uid://4h6nfwx1lsof" path="res://assets/sprites/hero2_sprites/Idle.png" id="1_00y7s"]
 [ext_resource type="Script" path="res://assets/scenes/hero_2.gd" id="1_pb1j0"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://w37bl6iv0eld" path="res://assets/sprites/hero2_sprites/Shot.png" id="6_50xn1"]
 [ext_resource type="Texture2D" uid="uid://ct466q36ptgh5" path="res://assets/sprites/hero2_sprites/Dead.png" id="8_0md0h"]
 [ext_resource type="Texture2D" uid="uid://bd1ud1raupsg4" path="res://assets/sprites/hero2_sprites/Hurt.png" id="9_f2n0s"]
+[ext_resource type="PackedScene" uid="uid://bvjube4sa6oc4" path="res://assets/scenes/big_healthbar.tscn" id="10_ykgv1"]
+[ext_resource type="Texture2D" uid="uid://bdr8fr5qv0k22" path="res://assets/sprites/hero2_sprites/gangster1_pp.png" id="11_0v2vm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kub5g"]
 atlas = ExtResource("1_00y7s")
@@ -846,6 +848,7 @@ libraries = {
 }
 
 [node name="ZoneAttack" type="Area2D" parent="."]
+visible = false
 
 [node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(29.8438, 10.6875)
@@ -853,5 +856,18 @@ shape = SubResource("RectangleShape2D_hmvwd")
 disabled = true
 
 [node name="attack_origin" type="Marker2D" parent="ZoneAttack/handcollision"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BigHealthbar" parent="CanvasLayer" instance=ExtResource("10_ykgv1")]
+offset_left = 47.0
+offset_top = 108.0
+offset_right = 163.0
+offset_bottom = 127.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(103, 57)
+scale = Vector2(3.5, 3.255)
+texture = ExtResource("11_0v2vm")
 
 [connection signal="body_entered" from="ZoneAttack" to="." method="_on_zone_attack_body_entered"]

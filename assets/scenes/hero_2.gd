@@ -26,10 +26,12 @@ var last_tap_time_right: float = 0.0
 @onready var attack_area: Area2D = $ZoneAttack  # Zone d'attaque
 @onready var attack_shape: CollisionShape2D = $ZoneAttack/handcollision  # Forme de collision de la zone d'attaque
 @onready var attack_origin : Marker2D = $ZoneAttack/handcollision/attack_origin
+@onready var healthbar = $CanvasLayer/BigHealthbar
 
 func _ready() -> void:
 	#sprite.scale *= 2  # Agrandir légèrement le sprite
 	animation_player.play("idle")
+	healthbar.init_health(health)
 
 # Called every frame
 func _process(_delta: float) -> void:
@@ -235,6 +237,9 @@ func take_damage(amount: int) -> void:
 	if direction == Vector2.ZERO:
 		animation_player.play("idle")
 	is_hurt = false
+	
+	healthbar.health = health
+	
 func die() -> void:
 	if is_dead:  # Si l'hero est déjà mort, ne pas exécuter la mort
 		return
