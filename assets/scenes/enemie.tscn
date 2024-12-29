@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://jp0y0nmte3mi"]
+[gd_scene load_steps=78 format=3 uid="uid://jp0y0nmte3mi"]
 
 [ext_resource type="Texture2D" uid="uid://crtc0ah778bwv" path="res://assets/sprites/enemie_sprites/Idle.png" id="1_hqbab"]
 [ext_resource type="Script" path="res://assets/scenes/enemie.gd" id="1_wlw8n"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d1tjd6dn5qj7l" path="res://assets/sprites/enemie_sprites/Attack_3.png" id="6_4xxpc"]
 [ext_resource type="Texture2D" uid="uid://bvflq2d2masnn" path="res://assets/sprites/enemie_sprites/Hurt.png" id="8_1p11k"]
 [ext_resource type="Texture2D" uid="uid://dtuw2b4mum1yh" path="res://assets/sprites/enemie_sprites/Dead.png" id="9_6c87v"]
+[ext_resource type="PackedScene" uid="uid://bvr38mg6p1ja5" path="res://assets/scenes/healthbar.tscn" id="10_2fw4f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cn462"]
 atlas = ExtResource("1_hqbab")
@@ -925,6 +926,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(-2, -43.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -932,6 +934,7 @@ position = Vector2(2, 43.5)
 shape = SubResource("CircleShape2D_dggrh")
 
 [node name="ZoneAttack" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 6
 
@@ -940,7 +943,12 @@ position = Vector2(-2, -36.5)
 shape = SubResource("RectangleShape2D_31o4a")
 
 [node name="attackTimer" type="Timer" parent="."]
-wait_time = 2.0
+
+[node name="Healthbar" parent="." instance=ExtResource("10_2fw4f")]
+offset_left = -14.0
+offset_top = -11.0
+offset_right = 7.0
+offset_bottom = -8.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

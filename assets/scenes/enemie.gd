@@ -3,7 +3,7 @@ extends CharacterBody2D
 # Variables
 var hero: CharacterBody2D = null  # Référence vers le héros à suivre
 var move_speed: float = 150.0  # Vitesse de déplacement de l'ennemi
-var attack_range: float = 70.0  # Distance à laquelle l'ennemi peut attaquer
+var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
 var attack_damage: int = 10  # Dégâts de l'attaque
 var is_attacking: bool = false  # Pour éviter de suivre et d'attaquer en même temps
 var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
@@ -17,13 +17,14 @@ var is_hurt : bool = false
 @onready var attack_area: Area2D = $ZoneAttack  # Zone d'attaque
 @onready var attack_shape: CollisionShape2D = $ZoneAttack/CollisionShape2D  # Forme de collision de la zone d'attaque
 @onready var attack_timer : Timer = $attackTimer
+@onready var healthbar = $Healthbar
 
 
 func _ready() -> void:
 	#sprite.scale *= 2 
 	animation_player.play("idle")
 	add_to_group("enemies")  # Ajoutez l'ennemi au groupe "enemies"
-	
+	healthbar.init_health(health)
 	
 
 func _process(delta: float) -> void:
@@ -99,6 +100,8 @@ func take_damage(amount: int) -> void:
 	animation_player.play("idle")
 	if health <= 0 and is_dead == false :
 		die()  # Appelle la méthode die si la santé atteint 0
+		
+	healthbar.health = health
 	is_hurt = false
 
 func die() -> void:
