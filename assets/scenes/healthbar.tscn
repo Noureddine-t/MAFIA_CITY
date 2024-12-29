@@ -5,10 +5,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3rcub"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jlnf"]
-bg_color = Color(0.124893, 0.705397, 0.485982, 1)
+bg_color = Color(0.796078, 0.478431, 0.101961, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvfj7"]
-bg_color = Color(0.151276, 0.151276, 0.151276, 1)
+bg_color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 expand_margin_left = 1.0
 expand_margin_top = 1.0
 expand_margin_right = 1.0
@@ -17,7 +17,7 @@ shadow_color = Color(0, 0, 0, 0.27451)
 shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fndi"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.796078, 0.188235, 0.101961, 1)
 
 [node name="Healthbar" type="ProgressBar"]
 z_index = 1
@@ -46,4 +46,9 @@ show_percentage = false
 wait_time = 0.4
 one_shot = true
 
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

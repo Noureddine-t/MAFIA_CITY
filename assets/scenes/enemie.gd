@@ -100,7 +100,8 @@ func take_damage(amount: int) -> void:
 	animation_player.play("idle")
 	if health <= 0 and is_dead == false :
 		die()  # Appelle la méthode die si la santé atteint 0
-		
+	
+	healthbar.show_health_bar()
 	healthbar.health = health
 	is_hurt = false
 

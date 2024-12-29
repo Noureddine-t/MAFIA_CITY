@@ -35,10 +35,12 @@ var hit_enemies = [] # Liste pour stocker les ennemis déjà touchés dans l'att
 @onready var attack_origin : Marker2D = $ZoneAttack/handcollision/attack_origin
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var healthbar = $CanvasLayer/BigHealthbar
 
 func _ready() -> void:
 	#sprite.scale *= 2  # Agrandir légèrement le sprite
 	animation_player.play("idle")
+	healthbar.init_health(health)
 	
 
 
@@ -207,6 +209,8 @@ func take_damage(amount: int) -> void:
 		animation_player.play("idle")
 	if health <= 0 and is_dead == false:
 		die()  # Appeler la fonction die si la santé atteint 0
+		
+	healthbar.health = health
 	
 
 # Fonction pour gérer la mort du héros

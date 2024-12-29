@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://clbs5f5fsl2sj"]
+[gd_scene load_steps=77 format=3 uid="uid://clbs5f5fsl2sj"]
 
 [ext_resource type="Texture2D" uid="uid://b0sf2uxclgaa6" path="res://assets/sprites/hero3_sprites/Idle.png" id="1_drt3o"]
 [ext_resource type="Script" path="res://assets/scenes/hero_3.gd" id="1_jpcve"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bwkc4lvs00a1c" path="res://assets/sprites/hero3_sprites/Attack_3.png" id="6_l0hwd"]
 [ext_resource type="Texture2D" uid="uid://bjku1dfa3t60y" path="res://assets/sprites/hero3_sprites/Hurt.png" id="8_xg0q6"]
 [ext_resource type="Texture2D" uid="uid://7lckp6r36fu2" path="res://assets/sprites/hero3_sprites/Dead.png" id="9_ou0pi"]
+[ext_resource type="PackedScene" uid="uid://bvjube4sa6oc4" path="res://assets/scenes/big_healthbar.tscn" id="10_deg2a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_knos6"]
 atlas = ExtResource("1_drt3o")
@@ -811,5 +812,21 @@ position = Vector2(2, -49)
 shape = SubResource("RectangleShape2D_31o4a")
 
 [node name="attack_origin" type="Marker2D" parent="ZoneAttack/handcollision"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BigHealthbar" parent="CanvasLayer" instance=ExtResource("10_deg2a")]
+offset_left = 47.0
+offset_top = 61.0
+offset_right = 288.0
+offset_bottom = 91.0
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 143.0
+offset_top = 30.0
+offset_right = 183.0
+offset_bottom = 53.0
+text = "HERO 3"
 
 [connection signal="body_entered" from="ZoneAttack" to="." method="_on_zone_attack_body_entered"]
