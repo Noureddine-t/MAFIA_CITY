@@ -747,7 +747,7 @@ position = Vector2(1473, -407.5)
 shape = SubResource("RectangleShape2D_7ssm4")
 
 [node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
-position = Vector2(277, 273)
+position = Vector2(341, 260)
 collision_layer = 3
 collision_mask = 3
 
@@ -756,6 +756,6 @@ position = Vector2(118, 0.5)
 scale = Vector2(0.5, 0.5)
 
 [node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
-position = Vector2(916, 276)
+position = Vector2(1084, 271)
 collision_layer = 3
 collision_mask = 3

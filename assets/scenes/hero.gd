@@ -45,7 +45,7 @@ func _process(_delta: float) -> void:
 	detect_double_tap(_delta)
 
 	# Si Hero2 est en train de tirer ou d'attaquer, il ne peut pas bouger
-	if is_shooting or is_attacking:
+	if is_shooting or is_attacking or is_hurt:
 		return
 
 	# Mémoriser la direction horizontale
@@ -65,7 +65,7 @@ func _process(_delta: float) -> void:
 		attack()
 
 func _physics_process(delta: float) -> void:
-	if is_shooting or is_attacking or is_dead :
+	if is_shooting or is_attacking or is_hurt or is_dead :
 		return
 
 	# Appliquer la vitesse normale ou de dash
@@ -114,6 +114,8 @@ func setState() -> bool:
 		new_state = "attack"
 	elif is_dashing:
 		new_state = "run"
+	elif is_hurt:
+		new_state = "hurt"
 	elif direction != Vector2.ZERO:
 		new_state = "walk"
 	else:
@@ -188,7 +190,7 @@ func attack() -> void:
 	else:
 		sprite.scale.x = abs(sprite.scale.x)
 
-	await get_tree().create_timer(0.48).timeout
+	await get_tree().create_timer(0.5).timeout
 	is_attacking = false
 
 	setState()
@@ -222,16 +224,17 @@ func take_damage(amount: int) -> void:
 		return
 	is_hurt = true
 	health -= amount  # Réduit la santé du héros
+	state = "hurt"
+	UpdateAnimation()
 	velocity = Vector2.ZERO
 	print("Hero took damage! Current health: " + str(health))
-	animation_player.play("hurt")
 	if health <= 0 and is_dead == false:
 		die()  # Appeler la fonction die si la santé atteint 0
 	else :
 		await get_tree().create_timer(0.25).timeout
-	if direction == Vector2.ZERO:
-		animation_player.play("idle")
 	is_hurt = false
+	setState()
+	UpdateAnimation()
 	
 	healthbar.health = health
 func die() -> void:
@@ -240,10 +243,11 @@ func die() -> void:
 	is_dead = true
 	print("Hero is dead")
 	animation_player.play("die")
+	velocity = Vector2.ZERO
 	await get_tree().create_timer(1.0).timeout
 	animation_player.play("dead")
 	await get_tree().create_timer(5.0).timeout
-	queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
+	#queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
 	
 
 func _on_zone_attack_body_entered(body: Node2D) -> void:

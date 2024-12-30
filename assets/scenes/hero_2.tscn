@@ -402,7 +402,7 @@ animations = [{
 size = Vector2(10, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hmvwd"]
-size = Vector2(22.5, 14)
+size = Vector2(30.5, 16.5)
 
 [sub_resource type="Animation" id="Animation_4tdxi"]
 length = 0.001
@@ -469,7 +469,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_j37u4"]
 resource_name = "attack"
-length = 0.4
+length = 0.5
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -478,7 +478,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333),
+"times": PackedFloat32Array(0, 0.266667, 0.366667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [27, 28, 29]
@@ -490,7 +490,7 @@ tracks/1/path = NodePath("ZoneAttack/handcollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333),
+"times": PackedFloat32Array(0, 0.266667, 0.366667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, false]
@@ -502,7 +502,7 @@ tracks/2/path = NodePath("ZoneAttack/handcollision:shape")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0666667, 0.133333),
+"times": PackedFloat32Array(0.266667, 0.366667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [SubResource("RectangleShape2D_hmvwd"), SubResource("RectangleShape2D_hmvwd")]
@@ -514,10 +514,10 @@ tracks/3/path = NodePath("ZoneAttack/handcollision:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.0666667, 0.133333),
+"times": PackedFloat32Array(0.266667, 0.366667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2(29.8438, 10.6875), Vector2(23.25, 9)]
+"values": [Vector2(26.75, 12.25), Vector2(16.5, 10)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -623,7 +623,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.133333, 0.166667, 0.2),
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.166667, 0.233333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [49, 50, 51, 52, 53]
@@ -838,6 +838,7 @@ script = ExtResource("1_pb1j0")
 sprite_frames = SubResource("SpriteFrames_pkblo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 15.313)
 shape = SubResource("RectangleShape2D_ad405")
 disabled = true

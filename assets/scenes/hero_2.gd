@@ -4,8 +4,8 @@ const bulletPath = preload('res://bulllet_2.tscn')  # Balle spécifique à Hero2
 
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
-var move_speed: float = 220.0  # Hero2 est un peu plus rapide
-var dash_speed: float = 450.0  # Dash plus rapide pour Hero2
+var move_speed: float = 220.0  
+var dash_speed: float = 450.0  
 var is_dashing: bool = false
 var is_shooting: bool = false
 var is_attacking: bool = false
@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 	detect_double_tap(_delta)
 
 	# Si Hero2 est en train de tirer ou d'attaquer, il ne peut pas bouger
-	if is_shooting or is_attacking:
+	if is_shooting or is_attacking or is_hurt:
 		return
 
 	# Mémoriser la direction horizontale
@@ -64,7 +64,7 @@ func _process(_delta: float) -> void:
 		attack()
 
 func _physics_process(delta: float) -> void:
-	if is_shooting or is_attacking:
+	if is_shooting or is_attacking or is_hurt or is_dead:
 		return
 
 	# Appliquer la vitesse normale ou de dash
@@ -112,6 +112,8 @@ func setState() -> bool:
 		new_state = "attack"
 	elif is_dashing:
 		new_state = "run"
+	elif is_hurt:
+		new_state = "hurt"
 	elif direction != Vector2.ZERO:
 		new_state = "walk"
 	else:
@@ -193,7 +195,7 @@ func attack() -> void:
 	else:
 		sprite.scale.x = abs(sprite.scale.x)
 
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.5).timeout
 	is_attacking = false
 
 	setState()
@@ -227,16 +229,17 @@ func take_damage(amount: int) -> void:
 		return
 	is_hurt = true
 	health -= amount  # Réduit la santé du héros
+	state = "hurt"
+	UpdateAnimation()
 	velocity = Vector2.ZERO
-	print("Hero took damage! Current health: " + str(health))
-	animation_player.play("hurt")
+	print("Hero_2 took damage! Current health: " + str(health))
 	if health <= 0 and is_dead == false:
 		die()  # Appeler la fonction die si la santé atteint 0
 	else :
 		await get_tree().create_timer(0.25).timeout
-	if direction == Vector2.ZERO:
-		animation_player.play("idle")
 	is_hurt = false
+	setState()
+	UpdateAnimation()
 	
 	healthbar.health = health
 	
@@ -249,7 +252,7 @@ func die() -> void:
 	await get_tree().create_timer(1.0).timeout
 	animation_player.play("dead")
 	await get_tree().create_timer(5.0).timeout
-	queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
+	#queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
 	
 
 
