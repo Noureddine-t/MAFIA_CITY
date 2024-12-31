@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://netxnaflx7ja"]
+[gd_scene load_steps=54 format=3 uid="uid://netxnaflx7ja"]
 
 [ext_resource type="Theme" uid="uid://cdnxxxhxeteub" path="res://Default2.tres" id="1_7237o"]
 [ext_resource type="Script" path="res://assets/scenes/choose_character.gd" id="1_n2n2e"]
@@ -281,23 +281,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_7nrvb"]
-resource_name = "hero_3"
-length = 0.62
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
-
 [sub_resource type="Animation" id="Animation_luno5"]
 length = 0.001
 tracks/0/type = "value"
@@ -347,12 +330,66 @@ tracks/0/keys = {
 "values": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 21]
 }
 
+[sub_resource type="Animation" id="Animation_7nrvb"]
+resource_name = "hero_3"
+length = 0.62
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0kfb2"]
 _data = {
 "RESET": SubResource("Animation_luno5"),
 "hero": SubResource("Animation_wwtk7"),
 "hero_2": SubResource("Animation_4mae5"),
 "hero_3": SubResource("Animation_7nrvb")
+}
+
+[sub_resource type="Animation" id="Animation_aaanb"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vfeag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2yts"]
+_data = {
+"RESET": SubResource("Animation_vfeag"),
+"fade_in": SubResource("Animation_aaanb")
 }
 
 [node name="ChooseCharacter" type="Node2D"]
@@ -401,6 +438,22 @@ sprite_frames = SubResource("SpriteFrames_nq1g6")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteController"]
 libraries = {
 "": SubResource("AnimationLibrary_0kfb2")
+}
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_h2yts")
 }
 
 [connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]

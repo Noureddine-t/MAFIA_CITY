@@ -9,6 +9,8 @@ var current_index = 0
 @onready var btn_previous = $SpriteController/prev
 @onready var btn_next = $SpriteController/next
 @onready var btn_start_game = $StartGame
+@onready var transition_layer = $TransitionLayer/ColorRect
+@onready var transition_anim = $TransitionLayer/AnimationPlayer
 
 func _ready():
 	play_current_animation()
@@ -49,4 +51,7 @@ func _on_start_game_pressed() -> void:
 		"hero_3":
 			scene_path = "res://assets/scenes/playground_2.tscn"
 	if scene_path != "":
+		# Lancer la transition
+		transition_anim.play("fade_in")
+		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file(scene_path)
