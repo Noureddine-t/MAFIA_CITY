@@ -759,3 +759,8 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(1084, 271)
 collision_layer = 3
 collision_mask = 3
+
+[node name="enemie2" parent="." instance=ExtResource("2_fhdtl")]
+position = Vector2(921, 244)
+collision_layer = 3
+collision_mask = 3
