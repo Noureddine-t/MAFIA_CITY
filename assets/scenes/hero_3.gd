@@ -55,7 +55,7 @@ func _process(_delta: float) -> void:
 	# Gestion du dash
 	detect_double_tap(_delta)
 
-	# Si Hero_3 est en train de tirer ou d'attaquer, il ne peut pas bouger
+	# Si Hero_3 est en train d'attaquer, il ne peut pas bouger
 	if is_attacking or is_hurt:
 		return
 

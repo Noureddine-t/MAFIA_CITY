@@ -727,8 +727,7 @@ sources/0 = SubResource("TileSetAtlasSource_gumwr")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkflf"]
 size = Vector2(2944, 593)
 
-[sub_resource type="Animation" id="Animation_mrms0"]
-resource_name = "fade_out"
+[sub_resource type="Animation" id="Animation_idme7"]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -743,7 +742,8 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_idme7"]
+[sub_resource type="Animation" id="Animation_mrms0"]
+resource_name = "fade_out"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -765,6 +765,7 @@ _data = {
 }
 
 [node name="Playground4" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_o2307")
 
 [node name="floor_layers" type="TileMapLayer" parent="."]
@@ -798,6 +799,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
 anchors_preset = 15

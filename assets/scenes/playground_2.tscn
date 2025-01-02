@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://b0q1vylcda232"]
+[gd_scene load_steps=13 format=4 uid="uid://b0q1vylcda232"]
 
 [ext_resource type="PackedScene" uid="uid://clbs5f5fsl2sj" path="res://assets/scenes/hero_3.tscn" id="1_pet0d"]
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="1_sbp84"]
 [ext_resource type="Script" path="res://assets/scenes/playground_2.gd" id="1_u44fc"]
 [ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="2_fhdtl"]
 [ext_resource type="Texture2D" uid="uid://c3mtr2iivsd00" path="res://assets/sprites/tilemap-city.png" id="3_br1km"]
+[ext_resource type="PackedScene" uid="uid://q1ghuav2so10" path="res://assets/scenes/enemie_2.tscn" id="6_l3kgv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ig68t"]
 texture = ExtResource("3_br1km")
@@ -727,8 +728,7 @@ sources/0 = SubResource("TileSetAtlasSource_ig68t")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ssm4"]
 size = Vector2(2944, 593)
 
-[sub_resource type="Animation" id="Animation_mrms0"]
-resource_name = "fade_out"
+[sub_resource type="Animation" id="Animation_idme7"]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -743,7 +743,8 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_idme7"]
+[sub_resource type="Animation" id="Animation_mrms0"]
+resource_name = "fade_out"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -765,6 +766,8 @@ _data = {
 }
 
 [node name="Playground2" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(1, -1)
 script = ExtResource("1_u44fc")
 
 [node name="floor_layers" type="TileMapLayer" parent="."]
@@ -795,16 +798,12 @@ position = Vector2(118, 0.5)
 scale = Vector2(0.5, 0.5)
 
 [node name="enemie" parent="." instance=ExtResource("2_fhdtl")]
-position = Vector2(1084, 271)
-collision_layer = 3
-collision_mask = 3
-
-[node name="enemie2" parent="." instance=ExtResource("2_fhdtl")]
-position = Vector2(921, 244)
+position = Vector2(1904, 230)
 collision_layer = 3
 collision_mask = 3
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="TransitionLayer"]
 anchors_preset = 15
@@ -819,3 +818,8 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_dbpua")
 }
+
+[node name="Enemie2" parent="." instance=ExtResource("6_l3kgv")]
+position = Vector2(1101, 236)
+collision_layer = 3
+collision_mask = 3
