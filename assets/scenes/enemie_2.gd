@@ -7,9 +7,9 @@ var cardinal_direction: Vector2 = Vector2.LEFT
 var direction: Vector2 = Vector2.ZERO
 var state: String = "idle"
 var hero: CharacterBody2D = null  # Référence vers le héros à suivre
-var move_speed: float = 150.0  # Vitesse de déplacement de l'ennemi
+var move_speed: float = 100.0  # Vitesse de déplacement de l'ennemi
 var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
-var shoot_range : float = 900.0
+
 var attack_damage: int = 10  # Dégâts de l'attaque
 var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
 var health: int = 50  # Santé de l'ennemi
@@ -31,61 +31,84 @@ var is_aligned : bool = false
 
 
 func _ready() -> void:
-	#sprite.scale *= 2 
-	animation_player.play("idle")
+	animation_player.play(state)
 	add_to_group("enemies")  # Ajoutez l'ennemi au groupe "enemies"
 	healthbar.init_health(health)
 	
-
 func _process(delta: float) -> void:
-	if is_dead:
+	if is_dead or is_hurt:
 		return  
-	#if is_shooting or is_attacking or is_hurt :
-	#		return
-	if not is_walking and not is_shooting and not is_attacking and not is_hurt: 
-		animation_player.play("idle")
-	if is_walking and (velocity.length() == 0 or velocity != Vector2.ZERO):
-		is_walking = false
+
+	# Mettre à jour le dernier mouvement horizontal
+	if direction.x != 0:
+		last_horizontal_direction = Vector2.LEFT if direction.x < 0 else Vector2.RIGHT
+		print("Updated last_horizontal_direction to: ", last_horizontal_direction)
 		
+	# Si un héros est détecté
 	if hero:
 		if hero.is_dead or hero.health <= 0:
 			stop_moving()
 			return
-			
-		if setState() or setDirectionTowardsHero(hero.global_position):
-			UpdateAnimation()
-		if hero.position.y - position.y == 0 : 
-			is_aligned = true
-		else : 
-			is_aligned = false
-			
 		
+		# Calculer la distance au héros
 		var distance_to_hero = position.distance_to(hero.position)
-
-		# Priorité : Attaque ou Tir
-		#if distance_to_hero <= attack_range:
-		#	if not is_attacking and not is_walking:
-		#		attack_timer.start()
-		if distance_to_hero <= shoot_range and abs(hero.position.y - position.y) <= 10 :
-			if not is_shooting:
-				shoot_timer.start()
-		elif distance_to_hero <= shoot_range and hero.position.y - position.y != 0 :
-			if not is_attacking and not is_shooting:
-				align_vertically_with_hero()
-		if distance_to_hero <= shoot_range :
-			if not is_shooting:
-				shoot_timer.start()
-		if hero.position.y == position.y:
-			velocity.y = 0  # Arrêter si aligné
-			is_walking = false
-		#if not is_walking and not is_shooting:  # Mettre à jour l'animation si nécessaire
-		#	animation_player.play("idle")
+		
+		# Priorité : attaque de mêlée si le héros est dans la portée d'attaque
+		if distance_to_hero <= 50:
+			if not is_attacking:
+				print("Condition d'attaque de mêlée satisfaite : distance =", distance_to_hero)
+				attack()
+				#await get_tree().create_timer(1.5).timeout
 				
+			return  # Pas de tir si une attaque de mêlée est en cours
+
+		# Tir immédiat si les conditions sont réunies
+		if abs(hero.position.y - position.y) <= 10 :
+			if not is_shooting:
+				print("Condition de tir satisfaite : distance =", distance_to_hero)
+				is_shooting = true  # Empêche de tirer à nouveau immédiatement
+				shoot()
+		else:
+			is_shooting = false  # Réinitialiser si les conditions ne sont plus valides
+		
+		# Mise à jour de l'état et des animations
+		var state_changed = setState()  # Mettre à jour l'état
+		var direction_changed = setDirectionTowardsHero(hero.global_position)
+		if state_changed or direction_changed:
+			UpdateAnimation()
+			
+		# L'ennemi fait face au héros
+		face_hero()
+
+		# Arrêter les déplacements si aligné pour le tir
+		if abs(hero.position.y - position.y) <= 10:
+			is_walking = false
+		else:
+			align_vertically_with_hero() # S'aligne verticalement si nécessaire
+
 	else:
 		stop_moving()
 
+			
+
+
 	
-	
+func face_hero() -> void:
+	# Vérifie la position du héros par rapport à l'ennemi
+	if hero.global_position.x < global_position.x:
+		# Le héros est à gauche
+		sprite.scale.x = -abs(sprite.scale.x)  # Inverse pour faire face à gauche
+		attack_area.scale.x = -1  # Ajuste la zone d'attaque à gauche
+		last_horizontal_direction = Vector2.LEFT
+	else:
+		# Le héros est à droite
+		sprite.scale.x = abs(sprite.scale.x)  # Normale pour faire face à droite
+		attack_area.scale.x = 1  # Ajuste la zone d'attaque à droite
+		last_horizontal_direction = Vector2.RIGHT
+
+
+
+
 func setDirectionTowardsHero(hero_position: Vector2) -> bool:
 	var new_dir: Vector2 = cardinal_direction
 
@@ -101,14 +124,6 @@ func setDirectionTowardsHero(hero_position: Vector2) -> bool:
 			new_dir = Vector2.LEFT
 		else:
 			new_dir = Vector2.RIGHT
-
-		if new_dir == Vector2.LEFT:
-			sprite.scale.x = -abs(sprite.scale.x)
-			attack_area.scale.x = -1  # Ajuste la zone d'attaque à gauche
-		else:
-			sprite.scale.x = abs(sprite.scale.x)
-			attack_area.scale.x = 1   # Ajuste la zone d'attaque à droite
-
 	else:
 		if direction_to_hero.y < 0:
 			new_dir = Vector2.UP
@@ -122,7 +137,6 @@ func setDirectionTowardsHero(hero_position: Vector2) -> bool:
 	cardinal_direction = new_dir
 	return true
 
-
 func setState() -> bool:
 	var new_state: String
 
@@ -132,7 +146,7 @@ func setState() -> bool:
 		new_state = "attack"
 	elif is_hurt:
 		new_state = "hurt"
-	elif velocity.length() > 0 or velocity != Vector2.ZERO: 
+	elif is_walking:
 		new_state = "walk"
 	else:
 		new_state = "idle"
@@ -144,34 +158,10 @@ func setState() -> bool:
 	return true
 	
 func UpdateAnimation() -> void:
+	print("playing state : ", state)
 	animation_player.play(state)
 	
-'''func follow_hero(delta: float) -> void:
-	if not hero or  is_shooting or is_attacking or is_hurt or is_dead:
-		return
-	is_walking = true
-	state = "walk"
-	UpdateAnimation()
-	# Calculer la direction vers le héros
-	var direction: Vector2 = (hero.position - position).normalized()
-
-	# Déplacer l'ennemi vers le héros
-	velocity = direction * move_speed
-	move_and_slide()
-
-	# Ajuster le sprite pour que l'ennemi fasse face au héros
-	if direction.x < 0:
-		sprite.scale.x = -abs(sprite.scale.x)# Faire face à gauche
-		attack_area.scale.x = -1  # Déplace le Marker2D à gauche
-		
-	else:
-		sprite.scale.x = abs(sprite.scale.x)  # Faire face à droite
-		attack_area.scale.x = 1 
-
-	is_walking = false
-	setState()
-	UpdateAnimation()
-	'''
+	
 func attack() -> void:
 	if is_dead:
 		return  
@@ -183,6 +173,7 @@ func attack() -> void:
 		
 		if hero.is_dead :
 			is_attacking = false
+		await get_tree().create_timer(0.5).timeout
 		is_attacking = false  # Reprendre le comportement normal
 		setState()
 		UpdateAnimation()
@@ -190,36 +181,39 @@ func shoot() -> void:
 	if is_dead:
 		return
 	if hero :	
-		if abs(hero.position.y - position.y) > 10:  # Tolérance de 10 pixels
-			return
+		#if abs(hero.position.y - position.y) > 10:  # Tolérance de 10 pixels
+		#	return
 		is_shooting = true
 		state = "shoot"
 		UpdateAnimation()
-		#wait get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.21).timeout
 		shoot_bullet()
-		if last_horizontal_direction == Vector2.LEFT:
-			sprite.scale.x = -abs(sprite.scale.x)
-		else:
-			sprite.scale.x = abs(sprite.scale.x)
+		face_hero()
+		#if last_horizontal_direction == Vector2.LEFT:
+		#	sprite.scale.x = -abs(sprite.scale.x)
+		#else:
+		#	sprite.scale.x = abs(sprite.scale.x)
 	is_shooting = false
 	setState()
 	UpdateAnimation()
 
 func shoot_bullet() -> void:
 	var bullet = bulletPath.instantiate()
-	get_parent().add_child(bullet)  # Ajoutez le projectile à la scène
-	var bullet_offset_right = Vector2(30, 50)
-	var bullet_offset_left = Vector2(-30, 50)
-	if last_horizontal_direction == Vector2.RIGHT:
-		bullet.global_position = global_position + bullet_offset_right
-		bullet.set_direction(Vector2.RIGHT)
-	else:
-		bullet.global_position = global_position + bullet_offset_left
-		bullet.set_direction(Vector2.LEFT)
+	get_parent().add_child(bullet)
 
-	bullet.scale = Vector2(2.5, 2.5)  # Ajustement de l'échelle pour Hero2
+	# Détermine la position et la direction
+	var bullet_offset = Vector2(30, 50) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 50)
+	bullet.global_position = global_position + bullet_offset
+	bullet.set_direction(last_horizontal_direction)
+
+	bullet.scale = Vector2(2.5, 2.5)  # Taille spécifique pour l'ennemi
+
 
 func align_vertically_with_hero() -> void:
+	is_walking = true
+	animation_player.play("walk")
+	velocity.x = 0  # Pas de mouvement horizontal pendant l'alignement
+	
 	if not hero or  is_shooting or is_attacking or is_hurt or is_dead:
 		return
 	if hero.position.y == position.y:
@@ -227,9 +221,7 @@ func align_vertically_with_hero() -> void:
 		is_walking = false
 		return
 	
-	is_walking = true
-	animation_player.play("walk")
-	velocity.x = 0  # Pas de mouvement horizontal pendant l'alignement
+	
 
 	if hero.position.y > position.y:
 		velocity.y = move_speed
@@ -237,7 +229,7 @@ func align_vertically_with_hero() -> void:
 		velocity.y = -move_speed
 	
 	move_and_slide()
-
+	
 		
 func stop_moving() -> void:
 	velocity = Vector2.ZERO  # Stopper le mouvement
@@ -302,12 +294,5 @@ func _on_zone_attack_body_entered(body: Node2D) -> void:
 func _on_attack_timer_timeout() -> void:
 	if is_dead :
 		return
-	print("temps écoulé")
+	print("temps attack écoulé")
 	attack()
-
-
-func _on_shoot_timer_timeout() -> void:
-	if is_dead :
-		return
-	print("temps shoot écoulé")
-	shoot()

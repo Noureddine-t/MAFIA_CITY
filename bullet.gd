@@ -18,6 +18,6 @@ func set_direction(new_direction: Vector2) -> void:
 	direction = new_direction
 
 func _on_bullet_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemies"):  # Vérifie si le corps en contact est un ennemi
+	if body.is_in_group("enemies")  or body.is_in_group("heros"):  # Vérifie si le corps en contact est un ennemi
 		body.take_damage(bullet_damage)  # Inflige des dégâts à l'ennemi
 		queue_free()

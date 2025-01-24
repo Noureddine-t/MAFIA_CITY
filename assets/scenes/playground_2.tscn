@@ -789,7 +789,7 @@ position = Vector2(1473, -407.5)
 shape = SubResource("RectangleShape2D_7ssm4")
 
 [node name="Hero_3" parent="." instance=ExtResource("1_pet0d")]
-position = Vector2(341, 260)
+position = Vector2(408, 354)
 collision_layer = 3
 collision_mask = 3
 
@@ -820,6 +820,6 @@ libraries = {
 }
 
 [node name="Enemie2" parent="." instance=ExtResource("6_l3kgv")]
-position = Vector2(1101, 236)
+position = Vector2(1257, 188)
 collision_layer = 3
 collision_mask = 3

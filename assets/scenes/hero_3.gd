@@ -40,6 +40,7 @@ var hit_enemies = [] # Liste pour stocker les ennemis déjà touchés dans l'att
 
 func _ready() -> void:
 	#sprite.scale *= 2  # Agrandir légèrement le sprite
+	add_to_group("heros") 
 	animation_player.play("idle")
 	healthbar.init_health(health)
 	

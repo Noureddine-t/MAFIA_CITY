@@ -31,6 +31,7 @@ var last_tap_time_right: float = 0.0
 
 func _ready() -> void:
 	#sprite.scale *= 2  # Agrandir légèrement le sprite
+	add_to_group("heros") 
 	animation_player.play("idle")
 	healthbar.init_health(health)
 
