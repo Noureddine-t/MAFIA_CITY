@@ -1,17 +1,17 @@
 extends CharacterBody2D
 
 
-const bulletPath = preload('res://bulllet_2.tscn')  # Balle spécifique à enemie_2
+const bulletPath = preload('res://bullet.tscn')  # Balle spécifique à enemie_2
 # Variables
 var cardinal_direction: Vector2 = Vector2.LEFT
 var direction: Vector2 = Vector2.ZERO
 var state: String = "idle"
 var hero: CharacterBody2D = null  # Référence vers le héros à suivre
-var move_speed: float = 100.0  # Vitesse de déplacement de l'ennemi
+var move_speed: float = 120.0  # Vitesse de déplacement de l'ennemi
 var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
 
 var attack_damage: int = 10  # Dégâts de l'attaque
-var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
+var detection_radius: float = 250.0  # Distance à laquelle l'ennemi détecte le héros
 var health: int = 50  # Santé de l'ennemi
 var is_walking : bool = false 
 var is_dead : bool = false 
@@ -175,6 +175,8 @@ func attack() -> void:
 		#if hero.is_dead :
 		#	is_attacking = false
 		await get_tree().create_timer(0.5).timeout
+		if is_dead:
+			return
 		is_attacking = false  # Reprendre le comportement normal
 		setState()
 		UpdateAnimation()
@@ -182,24 +184,20 @@ func shoot() -> void:
 	if is_dead:
 		return
 	if hero :	
-		#if abs(hero.position.y - position.y) > 10:  # Tolérance de 10 pixels
-		#	return
 		is_shooting = true
 		state = "shoot"
 		UpdateAnimation()
-		await get_tree().create_timer(0.21).timeout
+		await get_tree().create_timer(0.4).timeout
+		if is_dead:
+			return
 		shoot_bullet()
 		face_hero()
-		#if last_horizontal_direction == Vector2.LEFT:
-		#	sprite.scale.x = -abs(sprite.scale.x)
-		#else:
-		#	sprite.scale.x = abs(sprite.scale.x)
 	is_shooting = false
 	setState()
 	UpdateAnimation()
 
 func shoot_bullet() -> void:
-	if is_dead :
+	if is_dead:  # Si l'ennemi est déjà mort, ne pas recevoir de dégâts
 		return
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
@@ -213,8 +211,6 @@ func shoot_bullet() -> void:
 
 
 func align_vertically_with_hero() -> void:
-	if is_dead :
-		return
 	is_walking = true
 	animation_player.play("walk")
 	velocity.x = 0  # Pas de mouvement horizontal pendant l'alignement
@@ -262,6 +258,7 @@ func take_damage(amount: int) -> void:
 	is_hurt = false
 	setState()
 	UpdateAnimation()
+
 func die() -> void:
 	if is_dead:  # Si l'ennemi est déjà mort, ne pas exécuter la mort
 		return
@@ -280,8 +277,8 @@ func die() -> void:
 	queue_free()  # Supprime l'ennemi de la scène
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if is_dead :
-		return
+	if is_dead:
+		return 
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
 	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
@@ -301,8 +298,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 func _on_zone_attack_body_entered(body: Node2D) -> void:
-	if is_dead :
-		return
+	if is_dead:
+		return 
 	if body == hero and not hero.is_dead:
 		hero.take_damage(attack_damage)  # Inflige des dégâts au héros
 

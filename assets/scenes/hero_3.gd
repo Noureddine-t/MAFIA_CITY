@@ -126,7 +126,9 @@ func setDirection() -> bool:
 
 func setState() -> bool:
 	var new_state: String
-	if is_attacking:
+	if is_dead:
+		new_state = "die" if state != "dead" else "dead"
+	elif is_attacking:
 		new_state = "attack_%d" % combo_attack_count  # Affiche attack_1, attack_2, ou attack_3
 	elif is_dashing:
 		new_state = "run"
@@ -214,29 +216,34 @@ func take_damage(amount: int) -> void:
 	velocity = Vector2.ZERO
 	print("Hero_3 took damage! Current health: " + str(health))
 	if health <= 0 and is_dead == false:
-		die()
+		die()  # Appeler la fonction die si la santé atteint 0
+		healthbar.health = health
+		return
 	else :
 		await get_tree().create_timer(0.25).timeout
 	is_hurt = false
 	setState()
 	UpdateAnimation()
-		
-	healthbar.health = health
-	
+	if healthbar:
+		healthbar.health = health
 
 # Fonction pour gérer la mort du héros
 func die() -> void:
-	if is_dead:  # Si l'hero est déjà mort, ne pas exécuter la mort
+	if is_dead: 
 		return
 	is_dead = true
 	print("Hero_3 is dead")
-	animation_player.play("die")
+	state = "die"  # Mettre à jour l'état à "die"
+	UpdateAnimation()  # Mettre à jour l'animation en fonction de l'état
+	# Attendre la fin de l'animation "die"
 	await get_tree().create_timer(1.0).timeout
-	animation_player.play("dead")
+	state = "dead"
+	UpdateAnimation()
 	await get_tree().create_timer(5.0).timeout
-	#queue_free()  # Supprime l'objet du héros de la scène, ou tu peux gérer autrement la mort
-	
+	#queue_free()  
 
 func _on_zone_attack_body_entered(body: Node2D) -> void:
+	if is_dead:
+		return
 	if body.is_in_group("enemies"):  # Vérifie si le corps en contact est un ennemi
 		body.take_damage(attack_damage)  # Inflige des dégâts à l'ennemi

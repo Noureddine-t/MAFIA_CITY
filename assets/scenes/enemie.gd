@@ -80,11 +80,13 @@ func attack() -> void:
 		animation_player.play("attack_%d" % random_attack)  # Jouer l'animation choisie aléatoirement
 		await get_tree().create_timer(0.5).timeout 
 		
-		if hero.is_dead :
-			is_attacking = false
+		#if hero.is_dead :
+		#	is_attacking = false
 		is_attacking = false  # Reprendre le comportement normal
 
 func stop_moving() -> void:
+	if is_dead:
+		return
 	velocity = Vector2.ZERO  # Stopper le mouvement
 	animation_player.play("idle")  # Revenir à l'animation idle
 	
@@ -100,9 +102,10 @@ func take_damage(amount: int) -> void:
 	animation_player.play("idle")
 	if health <= 0 and is_dead == false :
 		die()  # Appelle la méthode die si la santé atteint 0
-	
-	healthbar.show_health_bar()
-	healthbar.health = health
+		return
+	if healthbar:
+		healthbar.show_health_bar()
+		healthbar.health = health
 	is_hurt = false
 
 func die() -> void:
@@ -110,6 +113,9 @@ func die() -> void:
 		return
 	is_dead = true
 	print("Enemy is dead")
+	if healthbar:
+		healthbar.hide()
+		healthbar = null 
 	animation_player.play("die")
 	await get_tree().create_timer(1.0).timeout
 	animation_player.play("dead")
@@ -117,6 +123,8 @@ func die() -> void:
 	queue_free()  # Supprime l'ennemi de la scène
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	if is_dead :
+		return
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
 	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
@@ -136,6 +144,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 func _on_zone_attack_body_entered(body: Node2D) -> void:
+	if is_dead :
+		return
 	if body == hero and not hero.is_dead:
 		hero.take_damage(attack_damage)  # Inflige des dégâts au héros
 
