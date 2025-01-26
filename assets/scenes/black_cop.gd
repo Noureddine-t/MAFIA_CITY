@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const bulletPath = preload('res://bullet.tscn')  # Balle spécifique à enemie_2
+const bulletPath = preload('res://bulllet_2.tscn')  # Balle spécifique à enemie_2
 # Variables
 var cardinal_direction: Vector2 = Vector2.LEFT
 var direction: Vector2 = Vector2.ZERO
@@ -10,7 +10,7 @@ var hero: CharacterBody2D = null  # Référence vers le héros à suivre
 var move_speed: float = 120.0  # Vitesse de déplacement de l'ennemi
 var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
 
-var attack_damage: int = 10  # Dégâts de l'attaque
+var attack_damage: int = 20  # Dégâts de l'attaque
 var detection_radius: float = 250.0  # Distance à laquelle l'ennemi détecte le héros
 var health: int = 50  # Santé de l'ennemi
 var is_walking : bool = false 
@@ -26,7 +26,6 @@ var is_aligned : bool = false
 @onready var attack_area: Area2D = $ZoneAttack  # Zone d'attaque
 @onready var attack_shape: CollisionShape2D = $ZoneAttack/CollisionShape2D  # Forme de collision de la zone d'attaque
 @onready var attack_timer : Timer = $attackTimer
-@onready var shoot_timer : Timer = $shootTimer
 @onready var healthbar = $Healthbar
 
 
@@ -54,7 +53,7 @@ func _process(delta: float) -> void:
 		var distance_to_hero = position.distance_to(hero.position)
 		
 		# Priorité : attaque de mêlée si le héros est dans la portée d'attaque
-		if distance_to_hero <= 50:
+		if distance_to_hero <= 100:
 			if not is_attacking:
 				print("Condition d'attaque de mêlée satisfaite : distance =", distance_to_hero)
 				attack()
@@ -94,9 +93,9 @@ func _process(delta: float) -> void:
 
 	
 func face_hero() -> void:
-	if is_dead :
+	if is_dead:
 		return
-	if hero:
+	if hero : 
 		# Vérifie la position du héros par rapport à l'ennemi
 		if hero.global_position.x < global_position.x:
 			# Le héros est à gauche
@@ -206,7 +205,7 @@ func shoot_bullet() -> void:
 	get_parent().add_child(bullet)
 
 	# Détermine la position et la direction
-	var bullet_offset = Vector2(30, 50) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 50)
+	var bullet_offset = Vector2(30, 20) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 20)
 	bullet.global_position = global_position + bullet_offset
 	bullet.set_direction(last_horizontal_direction)
 
@@ -284,7 +283,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return 
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and (body.name == "hero_policewoman" or body.name == "hero_capitain" or body.name == "hero_blackcop" or body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 

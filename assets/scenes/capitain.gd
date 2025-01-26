@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 
-const bulletPath = preload('res://bullet.tscn')  # Balle spécifique à enemie_2
+const bulletPath = preload('res://bulllet_2.tscn') 
 # Variables
 var cardinal_direction: Vector2 = Vector2.LEFT
 var direction: Vector2 = Vector2.ZERO
 var state: String = "idle"
 var hero: CharacterBody2D = null  # Référence vers le héros à suivre
-var move_speed: float = 120.0  # Vitesse de déplacement de l'ennemi
-var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
+var move_speed: float = 150.0  # Vitesse de déplacement de l'ennemi
+#var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
 
 var attack_damage: int = 10  # Dégâts de l'attaque
 var detection_radius: float = 250.0  # Distance à laquelle l'ennemi détecte le héros
@@ -53,14 +53,6 @@ func _process(delta: float) -> void:
 		# Calculer la distance au héros
 		var distance_to_hero = position.distance_to(hero.position)
 		
-		# Priorité : attaque de mêlée si le héros est dans la portée d'attaque
-		if distance_to_hero <= 50:
-			if not is_attacking:
-				print("Condition d'attaque de mêlée satisfaite : distance =", distance_to_hero)
-				attack()
-				#await get_tree().create_timer(1.5).timeout
-				
-			return  # Pas de tir si une attaque de mêlée est en cours
 
 		# Tir immédiat si les conditions sont réunies
 		if abs(hero.position.y - position.y) <= 10 :
@@ -94,8 +86,6 @@ func _process(delta: float) -> void:
 
 	
 func face_hero() -> void:
-	if is_dead :
-		return
 	if hero:
 		# Vérifie la position du héros par rapport à l'ennemi
 		if hero.global_position.x < global_position.x:
@@ -206,7 +196,7 @@ func shoot_bullet() -> void:
 	get_parent().add_child(bullet)
 
 	# Détermine la position et la direction
-	var bullet_offset = Vector2(30, 50) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 50)
+	var bullet_offset = Vector2(30, 20) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 20)
 	bullet.global_position = global_position + bullet_offset
 	bullet.set_direction(last_horizontal_direction)
 
@@ -215,7 +205,7 @@ func shoot_bullet() -> void:
 
 func align_vertically_with_hero() -> void:
 	is_walking = true
-	animation_player.play("walk")
+	animation_player.play("run")
 	velocity.x = 0  # Pas de mouvement horizontal pendant l'alignement
 	
 	if not hero or  is_shooting or is_attacking or is_hurt or is_dead:
@@ -284,7 +274,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return 
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and (body.name == "hero_policewoman" or body.name == "hero_capitain" or body.name == "hero_blackcop" or body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 
@@ -300,11 +290,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 
-func _on_zone_attack_body_entered(body: Node2D) -> void:
-	if is_dead:
-		return 
-	if body == hero and not hero.is_dead:
-		hero.take_damage(attack_damage)  # Inflige des dégâts au héros
 
 func _on_attack_timer_timeout() -> void:
 	if is_dead :

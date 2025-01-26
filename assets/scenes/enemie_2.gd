@@ -284,7 +284,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "hero_policewoman" or body.name == "hero_capitain" or body.name == "hero_blackcop" or body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 

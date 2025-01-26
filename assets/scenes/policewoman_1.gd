@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const bulletPath = preload('res://bullet.tscn')  # Balle spécifique à enemie_2
+const bulletPath = preload('res://bulllet_2.tscn')  # Balle spécifique à enemie_2
 # Variables
 var cardinal_direction: Vector2 = Vector2.LEFT
 var direction: Vector2 = Vector2.ZERO
@@ -206,7 +206,7 @@ func shoot_bullet() -> void:
 	get_parent().add_child(bullet)
 
 	# Détermine la position et la direction
-	var bullet_offset = Vector2(30, 50) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 50)
+	var bullet_offset = Vector2(30, 20) if last_horizontal_direction == Vector2.RIGHT else Vector2(-30, 20)
 	bullet.global_position = global_position + bullet_offset
 	bullet.set_direction(last_horizontal_direction)
 
@@ -284,7 +284,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return 
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and (body.name == "hero_policewoman" or body.name == "hero_capitain" or body.name == "hero_blackcop" or body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 

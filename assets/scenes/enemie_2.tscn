@@ -850,6 +850,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(-2, -43.5)
 scale = Vector2(2, 2)
 

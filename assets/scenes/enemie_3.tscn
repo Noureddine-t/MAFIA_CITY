@@ -942,6 +942,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(-2, -43.5)
 scale = Vector2(1.5, 1.5)
 
@@ -950,7 +951,6 @@ position = Vector2(2, 43.5)
 shape = SubResource("CircleShape2D_wjaox")
 
 [node name="ZoneAttack" type="Area2D" parent="."]
-visible = false
 position = Vector2(0, 0.5)
 scale = Vector2(0.5, 0.5)
 

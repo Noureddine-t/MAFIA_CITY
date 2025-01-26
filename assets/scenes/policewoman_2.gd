@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 # Variables
 var hero: CharacterBody2D = null  # Référence vers le héros à suivre
-var move_speed: float = 150.0  # Vitesse de déplacement de l'ennemi
-var attack_range: float = 50.0  # Distance à laquelle l'ennemi peut attaquer
+var move_speed: float = 160.0  # Vitesse de déplacement de l'ennemi
+var attack_range: float = 90.0  # Distance à laquelle l'ennemi peut attaquer
 var attack_damage: int = 10  # Dégâts de l'attaque
 var is_attacking: bool = false  # Pour éviter de suivre et d'attaquer en même temps
 var detection_radius: float = 300.0  # Distance à laquelle l'ennemi détecte le héros
@@ -68,7 +68,7 @@ func follow_hero(delta: float) -> void:
 		sprite.scale.x = abs(sprite.scale.x)  # Faire face à droite
 		attack_area.scale.x = 1 
 		
-	animation_player.play("walk")
+	animation_player.play("run")
 func attack() -> void:
 	if is_dead or is_hurt:
 		return  
@@ -76,8 +76,7 @@ func attack() -> void:
 		is_attacking = true  # Bloquer le mouvement pendant l'attaque
 		velocity = Vector2.ZERO  # Stopper le mouvement
 		
-		var random_attack = randi_range(1, 3)
-		animation_player.play("attack_%d" % random_attack)  # Jouer l'animation choisie aléatoirement
+		animation_player.play("attack")  # Jouer l'animation choisie aléatoirement
 		await get_tree().create_timer(0.5).timeout 
 		
 		#if hero.is_dead :
@@ -127,7 +126,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	print("Body entered:", body.name)
 		# Quand un corps (comme le héros) entre dans la zone de détection
-	if body is CharacterBody2D and (body.name == "hero_policewoman" or body.name == "hero_capitain" or body.name == "hero_blackcop" or body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
+	if body is CharacterBody2D and (body.name == "Hero_3" or body.name == "Hero" or body.name == "Hero2") :  # Vérifier que c'est le héros
 		hero = body  # Sauvegarder la référence du héros
 
 
@@ -150,8 +149,15 @@ func _on_zone_attack_body_entered(body: Node2D) -> void:
 		hero.take_damage(attack_damage)  # Inflige des dégâts au héros
 
 
-func _on_timer_timeout() -> void:
-	if is_dead :
+func _on_attack_timer_timeout() -> void:
+	if is_dead or not hero:
 		return
-	print("temps écoulé")
-	attack()
+	
+	# Vérifie si le héros est toujours à portée d'attaque
+	var distance_to_hero = position.distance_to(hero.position)
+	if distance_to_hero <= attack_range:
+		print("Attaque en cours")
+		attack()  # Déclenche l'attaque uniquement si le héros est à portée
+	else:
+		print("Héros hors de portée, annulation de l'attaque")
+		is_attacking = false  # Libérer l'état d'attaque pour suivre le héros

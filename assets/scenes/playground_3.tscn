@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=4 uid="uid://ltjw1vlf6qwq"]
+[gd_scene load_steps=15 format=4 uid="uid://ltjw1vlf6qwq"]
 
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="1_3totd"]
 [ext_resource type="Script" path="res://assets/scenes/playground_3.gd" id="1_7fuyi"]
-[ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="1_fj5xm"]
 [ext_resource type="Texture2D" uid="uid://c3mtr2iivsd00" path="res://assets/sprites/tilemap-city.png" id="2_kwvtr"]
 [ext_resource type="PackedScene" uid="uid://b50tt7v5l73ug" path="res://assets/scenes/hero.tscn" id="2_rus65"]
+[ext_resource type="PackedScene" uid="uid://btwh2nwgjimr" path="res://assets/scenes/policewoman_2.tscn" id="5_33e85"]
+[ext_resource type="PackedScene" uid="uid://b7iprxuvulwvr" path="res://assets/scenes/policewoman_1.tscn" id="6_scv03"]
+[ext_resource type="PackedScene" uid="uid://b8vtiw0te86kk" path="res://assets/scenes/black_cop.tscn" id="7_klq0h"]
+[ext_resource type="PackedScene" uid="uid://cc6045v6yl1dl" path="res://assets/scenes/capitain.tscn" id="8_rulah"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sx37"]
 texture = ExtResource("2_kwvtr")
@@ -787,18 +790,13 @@ position = Vector2(1473, -407.5)
 shape = SubResource("RectangleShape2D_ogrck")
 
 [node name="Hero" parent="." instance=ExtResource("2_rus65")]
-position = Vector2(578, 240)
+position = Vector2(578, 184)
 collision_layer = 3
 collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]
 position = Vector2(0, 0.5)
 scale = Vector2(0.5, 0.5)
-
-[node name="enemie" parent="." instance=ExtResource("1_fj5xm")]
-position = Vector2(1136, 249)
-collision_layer = 3
-collision_mask = 3
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 
@@ -816,3 +814,18 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_dbpua")
 }
+
+[node name="policewoman_2" parent="." instance=ExtResource("5_33e85")]
+position = Vector2(1102, 51)
+
+[node name="policewoman_3" parent="." instance=ExtResource("5_33e85")]
+position = Vector2(1102, 325)
+
+[node name="policewoman_1" parent="." instance=ExtResource("6_scv03")]
+position = Vector2(1618, 191)
+
+[node name="black_cop" parent="." instance=ExtResource("7_klq0h")]
+position = Vector2(2114, 167)
+
+[node name="capitain" parent="." instance=ExtResource("8_rulah")]
+position = Vector2(2687, 181)
