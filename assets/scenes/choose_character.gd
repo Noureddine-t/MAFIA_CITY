@@ -1,7 +1,7 @@
 extends Node2D
 
 # Liste des animations disponibles
-var animations = ["hero_3", "hero", "hero_2"]
+var animations = ["hero_3", "hero", "hero_2", "police_1", "police_2", "police_3"]
 var current_index = 0
 
 # Références aux nœuds nécessaires
@@ -50,6 +50,12 @@ func _on_start_game_pressed() -> void:
 			scene_path = "res://assets/scenes/playground_4.tscn"
 		"hero_3":
 			scene_path = "res://assets/scenes/playground_2.tscn"
+		"police_1":
+			scene_path = "res://assets/scenes/playground_7.tscn"
+		"police_2":
+			scene_path = "res://assets/scenes/playground_5.tscn"
+		"police_3":
+			scene_path = "res://assets/scenes/playground_6.tscn"
 	if scene_path != "":
 		# Lancer la transition
 		transition_anim.play("fade_in")
