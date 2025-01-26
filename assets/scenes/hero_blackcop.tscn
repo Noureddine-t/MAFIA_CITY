@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://chiog4f0xae8n" path="res://assets/sprites/black_cop/Hurt.png" id="7_g58h1"]
 [ext_resource type="Texture2D" uid="uid://cgi34uwtcoiui" path="res://assets/sprites/black_cop/Dead.png" id="8_oq2df"]
 [ext_resource type="PackedScene" uid="uid://bvjube4sa6oc4" path="res://assets/scenes/big_healthbar.tscn" id="9_vssxt"]
-[ext_resource type="Texture2D" uid="uid://xsg51u1ii5tb" path="res://assets/sprites/hero_sprites/gangster2_pp.png" id="10_vqddd"]
+[ext_resource type="Texture2D" uid="uid://obx32bhf387l" path="res://assets/sprites/black_cop/police_2.png" id="10_wspmp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uiv3t"]
 size = Vector2(10, 25)
@@ -808,6 +808,6 @@ offset_bottom = 130.0
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(102.096, 57)
 scale = Vector2(3.5, 3.321)
-texture = ExtResource("10_vqddd")
+texture = ExtResource("10_wspmp")
 
 [connection signal="body_entered" from="ZoneAttack" to="." method="_on_zone_attack_body_entered"]
