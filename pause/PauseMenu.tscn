@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bym7a7acapc2h"]
+[gd_scene load_steps=10 format=3 uid="uid://bym7a7acapc2h"]
 
 [ext_resource type="Script" path="res://pause/pause_menu.gd" id="1_2squ4"]
 [ext_resource type="Shader" path="res://pause/PauseMenu.gdshader" id="2_85q31"]
+[ext_resource type="Theme" uid="uid://cdnxxxhxeteub" path="res://Default2.tres" id="3_fbl5r"]
+[ext_resource type="AudioStream" uid="uid://b0j7g8feqws4h" path="res://audio/Hover_sound_effect.mp3" id="4_sfud4"]
+[ext_resource type="AudioStream" uid="uid://b6g2wyihknjsn" path="res://audio/button_sound_effect.mp3" id="5_28h8j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v8w0i"]
 shader = ExtResource("2_85q31")
@@ -106,25 +109,36 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 25
 
 [node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_fbl5r")
+theme_override_font_sizes/font_size = 30
 text = "Resume"
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_fbl5r")
+theme_override_font_sizes/font_size = 30
 text = "Restart"
 
 [node name="ChangeCharacter" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_fbl5r")
+theme_override_font_sizes/font_size = 30
 text = "Change character"
 
-[node name="Options" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Options"
+theme = ExtResource("3_fbl5r")
+theme_override_font_sizes/font_size = 30
+text = "settings"
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_fbl5r")
+theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -132,8 +146,19 @@ libraries = {
 "": SubResource("AnimationLibrary_ibcs5")
 }
 
+[node name="hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_sfud4")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_28h8j")
+
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ChangeCharacter" to="." method="_on_change_character_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/ChangeCharacter" to="." method="_on_change_character_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Settings" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
