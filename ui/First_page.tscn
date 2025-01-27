@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b72av1jvuf3mg"]
+[gd_scene load_steps=3 format=3 uid="uid://b72av1jvuf3mg"]
 
 [ext_resource type="Script" path="res://ui/first_page.gd" id="1_ers2r"]
+[ext_resource type="AudioStream" uid="uid://bfasjwnkmdyh2" path="res://audio/audio_track_loading.mp3" id="2_r5sgi"]
 
 [node name="FirstPage" type="Control"]
 layout_mode = 3
@@ -32,6 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.513233, 0.513233, 0.513233, 1)
+theme_override_font_sizes/font_size = 30
 text = "DEMARCUS  COUSIN THE 3rd"
 
 [node name="Start" type="Label" parent="."]
@@ -49,6 +51,12 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
 text = "Press any button"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Background" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r5sgi")
+volume_db = -39.695
+autoplay = true
