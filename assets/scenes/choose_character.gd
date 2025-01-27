@@ -14,9 +14,12 @@ var current_index = 0
 
 func _ready():
 	play_current_animation()
+	btn_start_game.grab_focus()
 
 
 func _on_next_pressed():
+	var switch_sound = $ChangeCharacter # Play sound on click
+	switch_sound.play()
 	# Incrémenter l'index et vérifier les limites
 	current_index += 1
 	if current_index >= animations.size():
@@ -24,11 +27,20 @@ func _on_next_pressed():
 	play_current_animation()
 
 func _on_prev_pressed() -> void:
+	var switch_sound = $ChangeCharacter # Play sound on click
+	switch_sound.play()
 	# Décrémenter l'index et vérifier les limites
 	current_index -= 1
 	if current_index < 0:
 		current_index = animations.size() - 1
 	play_current_animation()
+
+# Cas d'utilisation d'une manette
+func _input(event):
+	if event.is_action_pressed("right"):
+		_on_next_pressed()
+	elif event.is_action_pressed("left"):
+		_on_prev_pressed()
 		
 func play_current_animation():
 	# Récupérer le nom de l'animation actuelle et la jouer
@@ -42,7 +54,8 @@ func play_current_animation():
 func _on_start_game_pressed() -> void:
 	var selected_animation = animations[current_index]
 	var scene_path = ""
-
+	var start_sound = $Click # Play sound on click
+	start_sound.play()
 	match selected_animation:
 		"hero":
 			scene_path = "res://assets/scenes/playground_3.tscn"
@@ -61,3 +74,8 @@ func _on_start_game_pressed() -> void:
 		transition_anim.play("fade_in")
 		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file(scene_path)
+
+
+func _on_start_game_mouse_entered() -> void:
+	var hover_sound = $Hover # Hover button sound effect
+	hover_sound.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://netxnaflx7ja"]
+[gd_scene load_steps=81 format=3 uid="uid://netxnaflx7ja"]
 
 [ext_resource type="Theme" uid="uid://cdnxxxhxeteub" path="res://Default2.tres" id="1_7237o"]
 [ext_resource type="Script" path="res://assets/scenes/choose_character.gd" id="1_n2n2e"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://wcxbkuiq5qdv" path="res://assets/sprites/policewoman_1/Idle.png" id="7_1rr2h"]
 [ext_resource type="Texture2D" uid="uid://b2o8h3rw152ai" path="res://assets/sprites/black_cop/Idle.png" id="8_t42tb"]
 [ext_resource type="Texture2D" uid="uid://dim8k7ups1a8p" path="res://assets/sprites/capitain/Idle.png" id="9_6k388"]
+[ext_resource type="AudioStream" uid="uid://b6g2wyihknjsn" path="res://audio/button_sound_effect.mp3" id="10_m2m1k"]
+[ext_resource type="AudioStream" uid="uid://6txrgh265dxj" path="res://audio/Change_character_sound_effectr.mp3" id="11_grbss"]
+[ext_resource type="AudioStream" uid="uid://b0j7g8feqws4h" path="res://audio/Hover_sound_effect.mp3" id="12_4cmj8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imkvw"]
 atlas = ExtResource("2_xodfy")
@@ -599,7 +602,7 @@ anchor_right = 0.042
 anchor_bottom = 0.028
 offset_left = 400.0
 offset_top = 250.0
-offset_right = 404.846
+offset_right = 393.616
 offset_bottom = 271.856
 theme = ExtResource("1_7237o")
 text = "<
@@ -639,6 +642,17 @@ libraries = {
 "": SubResource("AnimationLibrary_h2yts")
 }
 
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_m2m1k")
+
+[node name="ChangeCharacter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_grbss")
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_4cmj8")
+volume_db = -20.377
+
+[connection signal="mouse_entered" from="StartGame" to="." method="_on_start_game_mouse_entered"]
 [connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="SpriteController/prev" to="." method="_on_prev_pressed"]
 [connection signal="pressed" from="SpriteController/next" to="." method="_on_next_pressed"]
