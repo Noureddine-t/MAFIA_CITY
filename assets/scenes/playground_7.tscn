@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b4ke3gvau0vq8"]
+[gd_scene load_steps=15 format=4 uid="uid://b4ke3gvau0vq8"]
 
 [ext_resource type="Script" path="res://assets/scenes/playground_3.gd" id="1_37dib"]
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="2_sjfno"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d17bgbn35ff7o" path="res://assets/scenes/enemie_3.tscn" id="5_gf6r5"]
 [ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemie.tscn" id="6_enjct"]
 [ext_resource type="PackedScene" uid="uid://q1ghuav2so10" path="res://assets/scenes/enemie_2.tscn" id="7_m344s"]
+[ext_resource type="PackedScene" uid="uid://bym7a7acapc2h" path="res://pause/PauseMenu.tscn" id="8_0lqex"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sx37"]
 texture = ExtResource("3_1nsvp")
@@ -827,3 +828,13 @@ position = Vector2(1300, 299)
 
 [node name="Enemie2" parent="." instance=ExtResource("7_m344s")]
 position = Vector2(2597, 200)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_0lqex")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+metadata/_edit_use_anchors_ = true

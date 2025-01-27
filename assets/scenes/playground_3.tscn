@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://ltjw1vlf6qwq"]
+[gd_scene load_steps=16 format=4 uid="uid://ltjw1vlf6qwq"]
 
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="1_3totd"]
 [ext_resource type="Script" path="res://assets/scenes/playground_3.gd" id="1_7fuyi"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b7iprxuvulwvr" path="res://assets/scenes/policewoman_1.tscn" id="6_scv03"]
 [ext_resource type="PackedScene" uid="uid://b8vtiw0te86kk" path="res://assets/scenes/black_cop.tscn" id="7_klq0h"]
 [ext_resource type="PackedScene" uid="uid://cc6045v6yl1dl" path="res://assets/scenes/capitain.tscn" id="8_rulah"]
+[ext_resource type="PackedScene" uid="uid://bym7a7acapc2h" path="res://pause/PauseMenu.tscn" id="9_p0iln"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sx37"]
 texture = ExtResource("2_kwvtr")
@@ -829,3 +830,13 @@ position = Vector2(2114, 167)
 
 [node name="capitain" parent="." instance=ExtResource("8_rulah")]
 position = Vector2(2687, 181)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_p0iln")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+metadata/_edit_use_anchors_ = true
