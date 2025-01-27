@@ -14,6 +14,7 @@ var current_index = 0
 
 func _ready():
 	play_current_animation()
+	btn_start_game.grab_focus()
 
 
 func _on_next_pressed():
@@ -33,6 +34,13 @@ func _on_prev_pressed() -> void:
 	if current_index < 0:
 		current_index = animations.size() - 1
 	play_current_animation()
+
+# Cas d'utilisation d'une manette
+func _input(event):
+	if event.is_action_pressed("right"):
+		_on_next_pressed()
+	elif event.is_action_pressed("left"):
+		_on_prev_pressed()
 		
 func play_current_animation():
 	# Récupérer le nom de l'animation actuelle et la jouer
