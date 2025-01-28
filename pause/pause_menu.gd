@@ -5,6 +5,7 @@ extends Control
 @onready var change_Character_button = $PanelContainer/VBoxContainer/ChangeCharacter
 @onready var setting_button = $PanelContainer/VBoxContainer/Settings
 @onready var quit_button = $PanelContainer/VBoxContainer/Quit
+@onready var options = $Options
 
 func _ready():
 	set_menu_active(false)
@@ -47,12 +48,16 @@ func _on_change_character_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://assets/scenes/choose_character.tscn")
 	
-	# TODO
-#func _on_settings_pressed():
-	#click_sound()
-	#resume()
-	#get_tree().change_scene_to_file("res://menu/menu.tscn")
+func show_pause_menu():
+	$Options.hide()
+	$PanelContainer.show()
 	
+func _on_settings_pressed():
+	click_sound()
+	$Options.show()
+	$PanelContainer.hide()
+	
+
 func _on_quit_pressed():
 	click_sound()
 	await get_tree().create_timer(0.5).timeout
