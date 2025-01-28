@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b0q1vylcda232"]
+[gd_scene load_steps=15 format=4 uid="uid://b0q1vylcda232"]
 
 [ext_resource type="PackedScene" uid="uid://clbs5f5fsl2sj" path="res://assets/scenes/hero_3.tscn" id="1_pet0d"]
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="1_sbp84"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btwh2nwgjimr" path="res://assets/scenes/policewoman_2.tscn" id="5_gwovt"]
 [ext_resource type="PackedScene" uid="uid://b7iprxuvulwvr" path="res://assets/scenes/policewoman_1.tscn" id="6_yd4bj"]
 [ext_resource type="PackedScene" uid="uid://bym7a7acapc2h" path="res://pause/PauseMenu.tscn" id="7_hs2so"]
+[ext_resource type="AudioStream" uid="uid://oort5ocvqx46" path="res://audio/gameplay_soundtrack.mp3" id="8_he2q0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ig68t"]
 texture = ExtResource("3_br1km")
@@ -836,3 +837,8 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_he2q0")
+volume_db = -40.204
+autoplay = true
