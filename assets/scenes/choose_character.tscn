@@ -597,7 +597,6 @@ text = "Start Game"
 [node name="SpriteController" type="Node" parent="."]
 
 [node name="prev" type="Button" parent="SpriteController"]
-anchors_preset = -1
 offset_left = 400.0
 offset_top = 250.0
 offset_right = 440.0

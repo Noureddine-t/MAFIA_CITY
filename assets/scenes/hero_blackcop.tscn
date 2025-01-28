@@ -1,6 +1,6 @@
 [gd_scene load_steps=69 format=3 uid="uid://rbq0ygoj1qil"]
 
-[ext_resource type="Script" path="res://hero_blackcop.gd" id="1_80pdg"]
+[ext_resource type="Script" path="res://assets/scenes/hero_blackcop.gd" id="1_80pdg"]
 [ext_resource type="Texture2D" uid="uid://b2o8h3rw152ai" path="res://assets/sprites/black_cop/Idle.png" id="2_jmcut"]
 [ext_resource type="Texture2D" uid="uid://dpf2woaadra64" path="res://assets/sprites/black_cop/Walk.png" id="3_ieql5"]
 [ext_resource type="Texture2D" uid="uid://burofh5dvqfg2" path="res://assets/sprites/black_cop/Run.png" id="4_7hvgq"]
