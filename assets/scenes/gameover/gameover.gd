@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 
+func _ready():
+	$ColorRect/Restart.grab_focus()
+
 func _on_restart_pressed() -> void:
 	click_sound()
 	await get_tree().create_timer(0.5).timeout
