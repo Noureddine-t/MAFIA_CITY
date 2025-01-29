@@ -1,16 +1,15 @@
 extends Control
 
+var default_volume = AudioServer.get_bus_volume_db(0)
+
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0,value/3)
 
-
 func _on_mute_toggled(toggled_on: bool) -> void:
-		if toggled_on:
-			AudioServer.set_bus_volume_db(0, -80)  
-		else:
-			AudioServer.set_bus_volume_db(0, 0)
-
-
+	if toggled_on:
+		AudioServer.set_bus_volume_db(0, -80) 
+	else:
+		AudioServer.set_bus_volume_db(0, default_volume) 
 
 func _on_resolutions_item_selected(index: int) -> void:
 	match index:
