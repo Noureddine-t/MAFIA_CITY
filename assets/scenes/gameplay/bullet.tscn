@@ -15,6 +15,8 @@ scale = Vector2(0.0805687, 0.0439338)
 texture = ExtResource("2_04ri1")
 
 [node name="BulletArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletArea"]
 shape = SubResource("RectangleShape2D_tlq1o")

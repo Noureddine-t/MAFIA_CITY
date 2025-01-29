@@ -923,6 +923,7 @@ _data = {
 [node name="Hero" type="CharacterBody2D"]
 position = Vector2(0, -1)
 scale = Vector2(2, 2)
+collision_mask = 10
 script = ExtResource("1_byqbr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -943,6 +944,7 @@ libraries = {
 visible = false
 position = Vector2(0, 0.5)
 scale = Vector2(0.5, 0.5)
+collision_mask = 2
 
 [node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(13.6875, 24.75)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/scenes/playgrounds/playground_3.gd" id="1_37dib"]
 [ext_resource type="TileSet" uid="uid://co1x1mgnmhxu4" path="res://environnement/tile_city.tres" id="2_sjfno"]
-[ext_resource type="Texture2D" uid="uid://c3mtr2iivsd00" path="res://assets/sprites/tilemap-city.png" id="3_1nsvp"]
+[ext_resource type="Texture2D" uid="uid://xvxohnwtfngx" path="res://assets/sprites/tilemap-city.png" id="3_1nsvp"]
 [ext_resource type="PackedScene" uid="uid://db2fftgvutgub" path="res://assets/scenes/heroes/hero_policewoman.tscn" id="4_608ky"]
 [ext_resource type="PackedScene" uid="uid://d17bgbn35ff7o" path="res://assets/scenes/enemies/enemie_3.tscn" id="5_gf6r5"]
 [ext_resource type="PackedScene" uid="uid://jp0y0nmte3mi" path="res://assets/scenes/enemies/enemie.tscn" id="6_enjct"]

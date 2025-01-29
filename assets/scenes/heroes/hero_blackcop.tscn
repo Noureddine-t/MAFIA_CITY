@@ -769,6 +769,7 @@ _data = {
 [node name="hero_blackcop" type="CharacterBody2D"]
 position = Vector2(0, -1)
 scale = Vector2(2, 2)
+collision_mask = 10
 script = ExtResource("1_80pdg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -789,6 +790,7 @@ libraries = {
 [node name="ZoneAttack" type="Area2D" parent="."]
 position = Vector2(0, 0.5)
 scale = Vector2(0.5, 0.5)
+collision_mask = 2
 
 [node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(9.84375, 48.875)

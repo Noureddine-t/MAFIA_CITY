@@ -853,12 +853,15 @@ libraries = {
 visible = false
 position = Vector2(-2, -43.5)
 scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2, 43.5)
 shape = SubResource("CircleShape2D_pvohm")
 
 [node name="ZoneAttack" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(29.8438, 10.6875)

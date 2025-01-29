@@ -790,6 +790,7 @@ libraries = {
 [node name="ZoneAttack" type="Area2D" parent="."]
 position = Vector2(0, 0.5)
 scale = Vector2(0.5, 0.5)
+collision_mask = 2
 
 [node name="handcollision" type="CollisionShape2D" parent="ZoneAttack"]
 position = Vector2(52.125, 26)

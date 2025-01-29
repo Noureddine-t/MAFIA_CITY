@@ -98,6 +98,7 @@ confirm={
 2d_physics/layer_1="heros"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="walls"
+2d_physics/layer_4="bullets"
 
 [rendering]
 
