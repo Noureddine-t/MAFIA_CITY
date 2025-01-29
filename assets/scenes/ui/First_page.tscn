@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b72av1jvuf3mg"]
+[gd_scene load_steps=5 format=3 uid="uid://b72av1jvuf3mg"]
 
 [ext_resource type="Script" path="res://assets/scenes/ui/first_page.gd" id="1_ers2r"]
+[ext_resource type="Texture2D" uid="uid://c8gkuo3edt3d" path="res://assets/sprites/first_scene__.png" id="2_601ef"]
 [ext_resource type="Theme" uid="uid://cdnxxxhxeteub" path="res://Default2.tres" id="2_abg7g"]
 [ext_resource type="AudioStream" uid="uid://bfasjwnkmdyh2" path="res://audio/audio_track_loading.mp3" id="2_r5sgi"]
 
@@ -21,6 +22,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.678944, 0.678944, 0.678944, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_601ef")
 
 [node name="GameName" type="Button" parent="."]
 layout_mode = 1
@@ -48,12 +53,12 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -81.0
-offset_top = -171.0
+offset_top = -210.0
 offset_right = 66.0
-offset_bottom = -110.0
+offset_bottom = -149.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
