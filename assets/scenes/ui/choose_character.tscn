@@ -649,6 +649,20 @@ stream = ExtResource("11_grbss")
 stream = ExtResource("12_4cmj8")
 volume_db = -20.377
 
+[node name="CharacterName" type="Label" parent="."]
+offset_left = 578.0
+offset_top = 112.0
+offset_right = 758.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Iron fist
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
 [connection signal="mouse_entered" from="StartGame" to="." method="_on_start_game_mouse_entered"]
 [connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="SpriteController/prev" to="." method="_on_prev_pressed"]
