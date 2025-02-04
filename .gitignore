@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-MafiaCity-linux.x86_64
-MafiaCity-macos.zip
-MafiaCity-windows.exe
+MafiaCity-Linux.x86_64
+MafiaCity-Linux.arm64
+MafiaCity-macOS.zip
+MafiaCity-Windows.exe
