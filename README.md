@@ -7,6 +7,7 @@
 
 ## Table of Contents
 - [Description](#description)
+- [Game Design Document](#game-design-document)
 - [Gameplay](#gameplay)
 - [Features](#features)
 - [Download](#download)
@@ -17,6 +18,10 @@
 **Mafia City** is a 2D action game set in the roaring twenties in London. Choose to play as a **Mafia enforcer** protecting your business or a **Police officer** trying to bring down organized crime. Fight through dangerous streets, defeat your enemies, and shape the fate of the city.
 
 Developed with **Godot Engine**, this game offers **fast-paced combat** and **multiple characters**. Each character has unique abilities and weapons, allowing you to play the game in different ways.
+
+## Game Design Document
+You can find the full Game Design here:  
+📄 [Game Design Document (PDF)](./Gamedev_design_document_mafiacity.pdf)
 
 ## Gameplay
 - **Side-scrolling combat**: Engage in melee and ranged fights against gangsters and law enforcement.
